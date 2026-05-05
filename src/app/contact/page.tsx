@@ -6,8 +6,7 @@ import { Mail, Send, Loader2, CheckCircle } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
-// We would import supabase here
-// import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -16,18 +15,13 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    
+
     try {
-      // Supabase connection placeholder
-      // const { error } = await supabase.from('contacts').insert([formData]);
-      // if (error) throw error;
-      
-      // Simulating network request for the UI until Supabase is connected
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      const { error } = await supabase.from("contacts").insert([formData]);
+      if (error) throw error;
+
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
-      
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error) {
       console.error(error);
