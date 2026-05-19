@@ -12,7 +12,7 @@ export function Footer() {
               Kanishk<span className="text-brand-primary">.</span>
             </Link>
             <p className="text-foreground/70 max-w-sm">
-              Full Stack Developer, Tech Speaker, and Community Builder crafting digital experiences and empowering communities.
+              Developer, Tech Speaker, and Community Builder crafting digital experiences and empowering communities.
             </p>
           </div>
           

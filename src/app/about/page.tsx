@@ -53,7 +53,7 @@ export default function AboutPage() {
             </h2>
             <div className="text-foreground/80 space-y-4 leading-relaxed text-lg">
               <p>
-                Hello! I'm Kanishk Tyagi, a passionate Full Stack Developer who believes that writing code is only half the job. The other half is building up the community around it.
+                Hello! I'm Kanishk Tyagi, a passionate Developer who believes that writing code is only half the job. The other half is building up the community around it.
               </p>
               <p>
                 My background includes diverse roles, from tackling complex engineering challenges to managing customer support, which taught me that empathy is the most important skill in building user-centric products.

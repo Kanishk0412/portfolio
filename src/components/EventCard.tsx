@@ -4,19 +4,28 @@ import { motion } from "framer-motion";
 import { Calendar, MapPin, Building } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type EventRole = "Speaker" | "Judge" | "Mentor" | "Organizer";
+export type EventRole = "Speaker" | "Judge" | "Mentor" | "Organizer" | "Attendee";
 
 interface EventCardProps {
   title: string;
-  role: EventRole;
+  role: EventRole | EventRole[];
   organization: string;
   location: string;
   date: string;
   description: string;
+  instagramUrl?: string;
   imageUrls?: string[];
   className?: string;
   index?: number;
 }
+
+const roleColors: Record<EventRole, string> = {
+  Speaker: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  Judge: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+  Mentor: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+  Organizer: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+  Attendee: "bg-pink-500/10 text-pink-500 border-pink-500/20",
+};
 
 export function EventCard({
   title,
@@ -25,17 +34,12 @@ export function EventCard({
   location,
   date,
   description,
+  instagramUrl,
   imageUrls = [],
   className,
   index = 0,
 }: EventCardProps) {
-  
-  const roleColors = {
-    Speaker: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-    Judge: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-    Mentor: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
-    Organizer: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-  };
+  const roles = Array.isArray(role) ? role : [role];
 
   return (
     <motion.div
@@ -51,11 +55,19 @@ export function EventCard({
       <div className="p-6 md:p-8">
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
           <div>
-            <div className="flex items-center space-x-3 mb-3">
-              <span className={cn("px-3 py-1 text-xs font-semibold rounded-full border", roleColors[role])}>
-                {role}
-              </span>
-              <span className="text-foreground/50 text-sm flex items-center">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              {roles.map((r) => (
+                <span
+                  key={r}
+                  className={cn(
+                    "px-3 py-1 text-xs font-semibold rounded-full border",
+                    roleColors[r]
+                  )}
+                >
+                  {r}
+                </span>
+              ))}
+              <span className="text-foreground/50 text-sm flex items-center ml-1">
                 <Calendar className="w-4 h-4 mr-1.5" />
                 {date}
               </span>
@@ -75,12 +87,34 @@ export function EventCard({
           </div>
         </div>
 
-        <p className="text-foreground/80 leading-relaxed mb-6">
+        <p className="text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
           {description}
         </p>
 
+        {instagramUrl && (
+          <div className="rounded-xl overflow-hidden bg-background border border-card-border p-2 md:p-3 flex justify-center">
+            <blockquote
+              className="instagram-media"
+              data-instgrm-permalink={instagramUrl}
+              data-instgrm-version="14"
+              style={{
+                background: "transparent",
+                border: 0,
+                margin: 0,
+                maxWidth: 540,
+                minWidth: 280,
+                width: "100%",
+              }}
+            >
+              <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+                View on Instagram
+              </a>
+            </blockquote>
+          </div>
+        )}
+
         {imageUrls.length > 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6">
             {imageUrls.map((url, i) => (
               <div key={i} className="aspect-video bg-background rounded-lg overflow-hidden border border-card-border">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

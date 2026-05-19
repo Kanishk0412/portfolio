@@ -23,7 +23,7 @@ export default function Home() {
           Hi, I&apos;m Kanishk Tyagi
         </h1>
         <p className="text-xl md:text-2xl text-foreground/70 mb-10 max-w-3xl">
-          Full Stack Developer | Tech Speaker | Community Builder
+          Developer | Tech Speaker | Community Builder
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
