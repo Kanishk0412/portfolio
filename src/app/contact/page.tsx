@@ -6,7 +6,7 @@ import { Mail, Send, Loader2, CheckCircle } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -17,7 +17,7 @@ export default function ContactPage() {
     setStatus("loading");
 
     try {
-      const { error } = await supabase.from("contacts").insert([formData]);
+      const { error } = await getSupabase().from("contacts").insert([formData]);
       if (error) throw error;
 
       setStatus("success");
