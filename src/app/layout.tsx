@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kanishk Tyagi | Full Stack Developer & Tech Speaker",
-  description: "Personal portfolio of Kanishk Tyagi - Full Stack Developer, Tech Speaker, and Community Builder.",
+  title: "Kanishk Tyagi | Developer & Tech Speaker",
+  description: "Personal portfolio of Kanishk Tyagi - Developer, Tech Speaker, and Community Builder.",
 };
 
 export default function RootLayout({
