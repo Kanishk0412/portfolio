@@ -13,15 +13,13 @@ export default function AboutPage() {
       />
 
       <div className="flex flex-col lg:flex-row gap-16 items-start mt-12">
-        {/* Left Column - Image & Quick Facts */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full lg:w-1/3 space-y-8"
         >
           <div className="aspect-[4/5] bg-card-bg rounded-3xl overflow-hidden border border-card-border relative shadow-2xl">
-            {/* User image */}
             <img src="/profile.jpg" alt="Kanishk Tyagi" className="w-full h-full object-cover" onError={(e) => {
               (e.target as HTMLImageElement).src = "https://ui-avatars.com/api/?name=Kanishk+Tyagi&background=18181b&color=fafafa&size=800";
             }} />
@@ -39,16 +37,14 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* Right Column - Bio & Timeline */}
         <div className="w-full lg:w-2/3 space-y-12">
-          
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <h2 className="text-2xl font-bold mb-4 flex items-center">
-              <span className="w-8 h-8 rounded-full bg-brand-primary/20 text-brand-primary flex items-center justify-center mr-3">👋</span>
+              <span className="w-1.5 h-7 rounded-full bg-brand-primary mr-3" />
               My Journey
             </h2>
             <div className="text-foreground/80 space-y-4 leading-relaxed text-lg">

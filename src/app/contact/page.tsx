@@ -41,8 +41,7 @@ export default function ContactPage() {
       />
 
       <div className="flex flex-col lg:flex-row gap-12 mt-12">
-        {/* Contact Info */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -78,8 +77,7 @@ export default function ContactPage() {
           </div>
         </motion.div>
 
-        {/* Contact Form */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -98,7 +96,7 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 transition-shadow"
-                    placeholder="John Doe"
+                    placeholder="Your name"
                   />
                 </div>
                 <div className="space-y-2">
@@ -111,7 +109,7 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 transition-shadow"
-                    placeholder="john@example.com"
+                    placeholder="you@email.com"
                   />
                 </div>
               </div>
@@ -125,7 +123,7 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 transition-shadow resize-none"
-                  placeholder="How can I help you?"
+                  placeholder="Tell me what you're working on, or just say hi."
                 />
               </div>
 

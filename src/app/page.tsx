@@ -9,10 +9,8 @@ import { ProfileImage } from "@/components/ProfileImage";
 export default function Home() {
   return (
     <div className="flex flex-col gap-24 md:gap-32">
-      {/* Hero Section */}
       <section className="container mx-auto px-6 md:px-12 pt-12 md:pt-24 flex flex-col items-center text-center">
         <div className="mb-8 relative inline-block">
-          {/* User's professional photo will go here */}
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-card-border overflow-hidden bg-card-bg relative z-10 shadow-2xl">
             <ProfileImage className="w-full h-full object-cover" />
           </div>
@@ -43,17 +41,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Impact Stats Section */}
       <section className="container mx-auto px-6 md:px-12">
         <Stats />
       </section>
 
-      {/* Featured Projects Section */}
       <section className="container mx-auto px-6 md:px-12">
         <div className="flex justify-between items-end mb-12">
-          <SectionHeading 
-            title="Featured Projects" 
-            subtitle="Some of my recent work in web development and AI." 
+          <SectionHeading
+            title="Featured Projects"
+            subtitle="Some of my recent work in web development and AI."
           />
           <Link href="/projects" className="hidden md:flex items-center text-brand-primary hover:text-brand-secondary transition-colors font-medium mb-16">
             View all projects <ChevronRight className="w-4 h-4 ml-1" />
@@ -84,12 +80,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent Events Section */}
       <section className="container mx-auto px-6 md:px-12">
         <div className="flex justify-between items-end mb-12">
-          <SectionHeading 
-            title="Recent Talks & Events" 
-            subtitle="I love sharing knowledge and building tech communities." 
+          <SectionHeading
+            title="Recent Talks & Events"
+            subtitle="I love sharing knowledge and building tech communities."
           />
           <Link href="/events" className="hidden md:flex items-center text-brand-primary hover:text-brand-secondary transition-colors font-medium mb-16">
             View all events <ChevronRight className="w-4 h-4 ml-1" />
@@ -98,21 +93,21 @@ export default function Home() {
 
         <div className="space-y-6">
           <EventCard
-            title="Building Modern Web Apps with Next.js 15"
-            role="Speaker"
-            organization="GDG Cloud"
-            location="New Delhi, India"
-            date="May 2026"
-            description="A comprehensive deep dive into the new features of Next.js 15, including React Compiler and improved App Router performance."
+            title="Hack-N-Win 3.0 — Mentor"
+            role="Mentor"
+            organization="CGC University · D4 Community"
+            location="Mohali, India"
+            date="April 2026"
+            description="Returned as a mentor at Hack-N-Win 3.0 to support student innovators. After mentoring at 2.0, it felt great to come back and help another batch of builders turn rough ideas into working prototypes."
             index={0}
           />
           <EventCard
-            title="AI Hackathon 2026"
-            role="Judge"
-            organization="Tech University"
-            location="Bangalore, India"
-            date="April 2026"
-            description="Judged over 50 projects focusing on generative AI and LLM implementations for social good."
+            title="GDG On Campus Hackathon — SCRIET"
+            role={["Speaker", "Judge"]}
+            organization="GDG On Campus · SCRIET, Meerut"
+            location="Meerut, India"
+            date="February 2026"
+            description="Spoke on the latest AI capabilities in Firebase and judged student projects that blended AI, creativity, and problem-solving under time pressure."
             index={1}
           />
         </div>
@@ -123,7 +118,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick About / CTA */}
       <section className="container mx-auto px-6 md:px-12 pb-24">
         <div className="bg-card-bg border border-card-border rounded-3xl p-8 md:p-16 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-brand-primary/20 blur-3xl rounded-full" />
