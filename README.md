@@ -1,97 +1,75 @@
-# Kanishk Tyagi — Portfolio
+# Portfolio — Kanishk Tyagi
 
-Personal portfolio website for Kanishk Tyagi — Full Stack Developer, Tech Speaker, and Community Builder. Built with Next.js 16, React 19, and Tailwind CSS v4.
+My personal site. Developer, tech speaker, community builder — mostly the place I point people to when they ask "where can I see your stuff?".
 
-## Pages
+Live at **[kanishk.dev](#)** (replace with your actual domain).
 
-| Route | Description |
-|-------|-------------|
-| `/` | Hero, stats, featured projects, recent events, CTA |
-| `/projects` | Full project grid with tech tags and links |
-| `/events` | Filterable list of talks, hackathons, and mentoring |
-| `/about` | Bio, experience timeline, education, tech stack |
-| `/contact` | Contact form (Supabase-ready) + social links |
+## Stack
 
-## Tech Stack
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS v4
+- Framer Motion for the animations on cards / headings
+- Supabase for the contact form
+- Inter (next/font/google)
 
-- **Framework** — [Next.js 16](https://nextjs.org) (App Router, Turbopack)
-- **Language** — TypeScript
-- **Styling** — [Tailwind CSS v4](https://tailwindcss.com)
-- **Animations** — [Framer Motion](https://www.framer.com/motion/)
-- **Icons** — [Lucide React](https://lucide.dev) + [React Icons](https://react-icons.github.io/react-icons/)
-- **Backend (planned)** — [Supabase](https://supabase.com) for contact form submissions
-- **Font** — Inter (via `next/font/google`)
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm
-
-### Installation
+## Running it locally
 
 ```bash
-git clone https://github.com/Kanishk0412/portfolio.git
-cd portfolio
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Then open `http://localhost:3000`.
 
-### Build
+The contact form is wired to Supabase. Without env vars it still loads — the form just throws when you submit. To make it actually work, copy `.env.local.example` to `.env.local` and fill in:
 
-```bash
-npm run build
-npm start
+```
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
 
-## Project Structure
+You'll need a `contacts` table with `name`, `email`, `message` columns (text).
+
+## Where things live
 
 ```
 src/
-├── app/
-│   ├── layout.tsx          # Root layout (Navbar + Footer)
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Global styles + Tailwind theme tokens
-│   ├── icon.svg            # KT favicon
-│   ├── about/page.tsx
-│   ├── contact/page.tsx
-│   ├── events/page.tsx
-│   └── projects/page.tsx
-├── components/
-│   ├── Navbar.tsx          # Responsive navbar with scroll effect
-│   ├── Footer.tsx
-│   ├── ProfileImage.tsx    # Client component for avatar with fallback
-│   ├── ProjectCard.tsx     # Animated project card
-│   ├── EventCard.tsx       # Event/talk card with role badges
-│   ├── Stats.tsx           # Animated impact stats grid
-│   └── SectionHeading.tsx  # Animated section title
-└── lib/
-    └── utils.ts            # cn() helper (clsx + tailwind-merge)
+  app/
+    layout.tsx          root layout — Navbar + Footer wrap everything
+    page.tsx            home
+    about/page.tsx
+    events/page.tsx     filterable list of talks, hackathons, mentoring
+    projects/page.tsx
+    contact/page.tsx
+    globals.css         CSS vars for theme colors live here
+  components/
+    Navbar.tsx          sticky, fades a backdrop in on scroll
+    Footer.tsx
+    ProfileImage.tsx    handles fallback to ui-avatars if /profile.jpg is missing
+    ProjectCard.tsx
+    EventCard.tsx       supports Instagram embed + role badges
+    Stats.tsx
+    SectionHeading.tsx
+  lib/
+    supabase.ts         lazy client — only constructs when env vars exist
+    utils.ts            cn() helper
 ```
 
-## Customization
+## Editing content
 
-- **Profile photo** — add your photo as `public/profile.jpg`. The site falls back to a generated avatar if the file is missing.
-- **Projects & Events** — edit the data arrays directly in `src/app/projects/page.tsx` and `src/app/events/page.tsx`.
-- **Theme colors** — update CSS variables in `src/app/globals.css` (`--brand-primary`, `--brand-secondary`, etc.).
-- **Contact form** — uncomment the Supabase lines in `src/app/contact/page.tsx` and add your `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to `.env.local`.
+- **Photo** — drop a square-ish image in `public/profile.jpg`. There's a ui-avatars fallback so it won't break if it's missing.
+- **Projects** — `PROJECTS` array in `src/app/projects/page.tsx`.
+- **Events** — `ALL_EVENTS` array in `src/app/events/page.tsx`. Each event can have an `instagramUrl` and it'll render the embed.
+- **Stats** — `src/components/Stats.tsx`. Numbers are hardcoded — update them when they're stale.
+- **Colors** — CSS variables at the top of `globals.css` (`--brand-primary`, `--brand-secondary`, `--card-bg`, etc.). The site is dark-only by design.
 
-## Deployment
+## Deploy
 
-The easiest way to deploy is [Vercel](https://vercel.com):
+Vercel — push to GitHub, import on vercel.com, add the two Supabase env vars under project settings, deploy.
 
-1. Push this repo to GitHub
-2. Import it on [vercel.com/new](https://vercel.com/new)
-3. Vercel auto-detects Next.js — click **Deploy**
+The Supabase client is lazy on purpose (see `src/lib/supabase.ts`) so the build doesn't crash on preview deploys that haven't got the env vars set.
 
 ## License
 
-MIT
+MIT.
