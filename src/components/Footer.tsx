@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, CalendarClock } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 export function Footer() {
@@ -28,19 +28,28 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Connect</h3>
             <div className="flex space-x-4 mb-4">
-              <Link href="https://github.com" target="_blank" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
+              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
                 <FaGithub className="w-5 h-5" />
               </Link>
-              <Link href="https://linkedin.com" target="_blank" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
+              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://instagram.com" target="_blank" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
+              <Link href="https://www.instagram.com/hiresphere.in/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>
-            <Link href="mailto:contact@kanishk.com" className="inline-flex items-center text-foreground/70 hover:text-brand-primary transition-colors">
+            <Link href="mailto:kanishktyagi.connect@gmail.com" className="inline-flex items-center text-foreground/70 hover:text-brand-primary transition-colors">
               <Mail className="w-4 h-4 mr-2" />
               Let's chat!
+            </Link>
+            <Link
+              href="https://topmate.io/kanishk_tyagi10/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center text-foreground/70 hover:text-brand-secondary transition-colors"
+            >
+              <CalendarClock className="w-4 h-4 mr-2" />
+              Book a 1:1 on Topmate
             </Link>
           </div>
         </div>
