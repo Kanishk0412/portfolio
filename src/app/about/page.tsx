@@ -2,7 +2,7 @@
 
 import { SectionHeading } from "@/components/SectionHeading";
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Award } from "lucide-react";
+import { Briefcase, GraduationCap } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -20,6 +20,7 @@ export default function AboutPage() {
           className="w-full lg:w-1/3 space-y-8"
         >
           <div className="aspect-[4/5] bg-card-bg rounded-3xl overflow-hidden border border-card-border relative shadow-2xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/profile.jpg" alt="Kanishk Tyagi" className="w-full h-full object-cover" onError={(e) => {
               (e.target as HTMLImageElement).src = "https://ui-avatars.com/api/?name=Kanishk+Tyagi&background=18181b&color=fafafa&size=800";
             }} />
@@ -49,13 +50,13 @@ export default function AboutPage() {
             </h2>
             <div className="text-foreground/80 space-y-4 leading-relaxed text-lg">
               <p>
-                Hello! I'm Kanishk Tyagi, a passionate Developer who believes that writing code is only half the job. The other half is building up the community around it.
+                Hello! I&apos;m Kanishk Tyagi, a passionate Developer who believes that writing code is only half the job. The other half is building up the community around it.
               </p>
               <p>
                 My background includes diverse roles, from tackling complex engineering challenges to managing customer support, which taught me that empathy is the most important skill in building user-centric products.
               </p>
               <p>
-                Outside of coding, you'll often find me organizing tech meetups, speaking at conferences, or mentoring the next generation of developers through organizations like GDG and TFUG.
+                Outside of coding, you&apos;ll often find me organizing tech meetups, speaking at conferences, or mentoring the next generation of developers through organizations like GDG and TFUG.
               </p>
             </div>
           </motion.section>

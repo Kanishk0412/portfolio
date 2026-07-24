@@ -6,6 +6,7 @@ interface ProfileImageProps {
 
 export function ProfileImage({ className }: ProfileImageProps) {
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src="/profile.jpg"
       alt="Kanishk Tyagi"

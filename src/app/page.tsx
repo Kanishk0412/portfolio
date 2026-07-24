@@ -124,9 +124,9 @@ export default function Home() {
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-brand-secondary/20 blur-3xl rounded-full" />
           
           <div className="relative z-10 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Let's build something amazing together</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">Let&apos;s build something amazing together</h2>
             <p className="text-lg text-foreground/70 mb-10">
-              Whether you need a full-stack developer for your next project, or a speaker for your upcoming tech event, I'm always open to new opportunities.
+              Whether you need a full-stack developer for your next project, or a speaker for your upcoming tech event, I&apos;m always open to new opportunities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -40,7 +40,7 @@ export function Footer() {
             </div>
             <Link href="mailto:kanishktyagi.connect@gmail.com" className="inline-flex items-center text-foreground/70 hover:text-brand-primary transition-colors">
               <Mail className="w-4 h-4 mr-2" />
-              Let's chat!
+              Let&apos;s chat!
             </Link>
             <Link
               href="https://topmate.io/kanishk_tyagi10/"

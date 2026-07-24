@@ -8,16 +8,57 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
 
+const LIMITS = { name: 100, email: 254, message: 2000 } as const;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(data: { name: string; email: string; message: string }): string | null {
+  if (!data.name) return "Please enter your name.";
+  if (data.name.length > LIMITS.name) return "Name is too long.";
+  if (!data.email) return "Please enter your email.";
+  if (data.email.length > LIMITS.email || !EMAIL_RE.test(data.email))
+    return "Please enter a valid email address.";
+  if (!data.message) return "Please enter a message.";
+  if (data.message.length > LIMITS.message) return "Message is too long (max 2000 characters).";
+  return null;
+}
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  // Honeypot: kept out of formData so it is never sent to the database. Bots that
+  // auto-fill every field will populate it; humans never see it.
+  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("Something went wrong. Please try again later.");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (status === "loading") return;
+
+    // Silently accept bot submissions without hitting the database.
+    if (website.trim() !== "") {
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    }
+
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    const validationError = validate(payload);
+    if (validationError) {
+      setErrorMsg(validationError);
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
 
     try {
-      const { error } = await getSupabase().from("contacts").insert([formData]);
+      const { error } = await getSupabase().from("contacts").insert([payload]);
       if (error) throw error;
 
       setStatus("success");
@@ -25,11 +66,13 @@ export default function ContactPage() {
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error) {
       console.error(error);
+      setErrorMsg("Something went wrong. Please try again later.");
       setStatus("error");
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (status === "error") setStatus("idle");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -96,6 +139,25 @@ export default function ContactPage() {
         >
           <div className="bg-card-bg border border-card-border rounded-3xl p-8 shadow-xl">
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot field — hidden from real users, catches naive bots.
+                  Zero-size + clipped so it never affects layout or scroll width. */}
+              <div
+                aria-hidden="true"
+                className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
+                style={{ clip: "rect(0 0 0 0)" }}
+              >
+                <label htmlFor="website">Website (leave this empty)</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-foreground/80">Your Name</label>
@@ -104,6 +166,8 @@ export default function ContactPage() {
                     id="name"
                     name="name"
                     required
+                    maxLength={100}
+                    autoComplete="name"
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 transition-shadow"
@@ -117,6 +181,8 @@ export default function ContactPage() {
                     id="email"
                     name="email"
                     required
+                    maxLength={254}
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 transition-shadow"
@@ -131,6 +197,7 @@ export default function ContactPage() {
                   name="message"
                   required
                   rows={6}
+                  maxLength={2000}
                   value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-background border border-card-border rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 transition-shadow resize-none"
@@ -140,7 +207,7 @@ export default function ContactPage() {
 
               {status === "error" && (
                 <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-sm">
-                  Something went wrong. Please try again later.
+                  {errorMsg}
                 </div>
               )}
 
