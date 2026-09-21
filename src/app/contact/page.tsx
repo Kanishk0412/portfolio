@@ -6,7 +6,6 @@ import { Mail, Send, Loader2, CheckCircle, CalendarClock } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { getSupabase } from "@/lib/supabase";
 
 const LIMITS = { name: 100, email: 254, message: 2000 } as const;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,8 +23,7 @@ function validate(data: { name: string; email: string; message: string }): strin
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  // Honeypot: kept out of formData so it is never sent to the database. Bots that
-  // auto-fill every field will populate it; humans never see it.
+  // The server checks this honeypot before it performs validation or writes.
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("Something went wrong. Please try again later.");
@@ -34,18 +32,11 @@ export default function ContactPage() {
     e.preventDefault();
     if (status === "loading") return;
 
-    // Silently accept bot submissions without hitting the database.
-    if (website.trim() !== "") {
-      setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus("idle"), 5000);
-      return;
-    }
-
     const payload = {
       name: formData.name.trim(),
       email: formData.email.trim(),
       message: formData.message.trim(),
+      website,
     };
 
     const validationError = validate(payload);
@@ -58,15 +49,24 @@ export default function ContactPage() {
     setStatus("loading");
 
     try {
-      const { error } = await getSupabase().from("contacts").insert([payload]);
-      if (error) throw error;
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json().catch(() => null)) as { error?: string } | null;
+      if (!response.ok) {
+        throw new Error(result?.error ?? "Something went wrong. Please try again later.");
+      }
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
+      setWebsite("");
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error) {
-      console.error(error);
-      setErrorMsg("Something went wrong. Please try again later.");
+      setErrorMsg(
+        error instanceof Error ? error.message : "Something went wrong. Please try again later.",
+      );
       setStatus("error");
     }
   };

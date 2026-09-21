@@ -10,7 +10,7 @@ Live at **[kanishk.dev](#)** (replace with your actual domain).
 - React 19
 - Tailwind CSS v4
 - Framer Motion for the animations on cards / headings
-- Supabase for the contact form
+- A server-side contact API backed by Supabase
 - Inter (next/font/google)
 
 ## Running it locally
@@ -22,14 +22,16 @@ npm run dev
 
 Then open `http://localhost:3000`.
 
-The contact form is wired to Supabase. Without env vars it still loads — the form just throws when you submit. To make it actually work, copy `.env.local.example` to `.env.local` and fill in:
+The contact form posts to a same-origin server route, which validates and rate-limits requests before writing to Supabase. Without env vars the site still loads and the API returns a safe `503` response. Copy `.env.local.example` to `.env.local` and fill in:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=...
 ```
 
-You'll need a `contacts` table with `name`, `email`, `message` columns (text).
+These variables are server-only and must never use the `NEXT_PUBLIC_` prefix. You'll need a `contacts` table with `name`, `email`, and `message` text columns. Enable RLS and do not grant the `anon` role direct access to this table; the server route uses the service-role credential after it has validated the request.
+
+The route includes a best-effort per-instance limit of five accepted attempts per IP every ten minutes. On a serverless deployment, also configure a platform or distributed rate-limit rule for `POST /api/contact` because separate instances do not share memory.
 
 ## Where things live
 
@@ -42,6 +44,7 @@ src/
     events/page.tsx     filterable list of talks, hackathons, mentoring
     projects/page.tsx
     contact/page.tsx
+    api/contact/route.ts  server-only validation, rate limiting, and Supabase write
     globals.css         CSS vars for theme colors live here
   components/
     Navbar.tsx          sticky, fades a backdrop in on scroll
@@ -52,7 +55,6 @@ src/
     Stats.tsx
     SectionHeading.tsx
   lib/
-    supabase.ts         lazy client — only constructs when env vars exist
     utils.ts            cn() helper
 ```
 
@@ -66,9 +68,14 @@ src/
 
 ## Deploy
 
-Vercel — push to GitHub, import on vercel.com, add the two Supabase env vars under project settings, deploy.
+Vercel — push to GitHub, import on vercel.com, add the two server-only Supabase env vars under project settings, and deploy.
 
-The Supabase client is lazy on purpose (see `src/lib/supabase.ts`) so the build doesn't crash on preview deploys that haven't got the env vars set.
+Before promoting to production:
+
+- Confirm anonymous Supabase access to `contacts` is denied.
+- Add a platform/distributed rate-limit rule for `POST /api/contact`.
+- Run `npm audit`, `npm run lint`, and `npm run build`.
+- Submit one real contact message in the deployment and confirm it reaches the table.
 
 ## License
 

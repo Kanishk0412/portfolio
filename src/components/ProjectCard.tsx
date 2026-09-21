@@ -58,6 +58,7 @@ export function ProjectCard({
             <Link
               href={githubUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className="text-foreground/70 hover:text-white flex items-center text-sm font-medium transition-colors"
             >
               <FaGithub className="w-4 h-4 mr-2" />
@@ -68,6 +69,7 @@ export function ProjectCard({
             <Link
               href={liveUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className="text-foreground/70 hover:text-brand-primary flex items-center text-sm font-medium transition-colors"
             >
               <ExternalLink className="w-4 h-4 mr-2" />
