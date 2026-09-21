@@ -61,7 +61,7 @@ export function Navbar() {
             <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-brand-primary transition-colors">
               <FaLinkedin className="w-5 h-5" />
             </Link>
-            <Link href="https://www.instagram.com/hiresphere.in/" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-brand-secondary transition-colors">
+            <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-brand-secondary transition-colors">
               <FaInstagram className="w-5 h-5" />
             </Link>
           </div>
@@ -105,7 +105,7 @@ export function Navbar() {
                 <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-brand-primary transition-colors">
                   <FaLinkedin className="w-6 h-6" />
                 </Link>
-                <Link href="https://www.instagram.com/hiresphere.in/" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-brand-secondary transition-colors">
+                <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" className="text-foreground/80 hover:text-brand-secondary transition-colors">
                   <FaInstagram className="w-6 h-6" />
                 </Link>
               </div>

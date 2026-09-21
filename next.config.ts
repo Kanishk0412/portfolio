@@ -7,19 +7,18 @@ const contentSecurityPolicy = [
   "form-action 'self'",
   "frame-ancestors 'self'",
   "object-src 'none'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.instagram.com`,
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://ui-avatars.com https://*.instagram.com https://*.cdninstagram.com https://*.fbcdn.net",
+  "img-src 'self' data: blob: https://ui-avatars.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.instagram.com https://*.cdninstagram.com",
-  "frame-src https://*.instagram.com",
-  "media-src 'self' https://*.cdninstagram.com https://*.fbcdn.net",
+  "connect-src 'self'",
+  "frame-src 'none'",
+  "media-src 'self'",
   "upgrade-insecure-requests",
 ].join("; ");
 
 // Security headers applied to every response. These are intentionally
-// framework-safe: they harden the site without breaking the third-party
-// Instagram embeds or client-side animations used on the site.
+// framework-safe: they harden the site without breaking client-side animations.
 const securityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
   // Stop the site from being framed by others (clickjacking protection).

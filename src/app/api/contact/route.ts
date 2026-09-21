@@ -45,14 +45,11 @@ function getClient(): SupabaseClient | null {
   if (supabase) return supabase;
 
   const isProduction = process.env.NODE_ENV === "production";
-  // Production requires server-only configuration. The public fallbacks exist
-  // solely to ease local migration from the previous browser-direct form.
-  const url =
-    process.env.SUPABASE_URL ??
-    (isProduction ? undefined : process.env.NEXT_PUBLIC_SUPABASE_URL);
+  // Prefer server-only credentials, while allowing the public anon key as a
+  // least-privilege fallback when the database is protected by RLS.
+  const url = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ??
-    (isProduction ? undefined : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !key) return null;
 

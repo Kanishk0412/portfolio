@@ -27,36 +27,37 @@ export function Footer() {
           
           <div>
             <h3 className="font-semibold text-lg mb-4">Connect</h3>
-            <div className="flex space-x-4 mb-4">
+            <div className="mb-5 flex gap-4">
               <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
                 <FaGithub className="w-5 h-5" />
               </Link>
               <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://www.instagram.com/hiresphere.in/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
+              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>
-            <Link href="mailto:kanishktyagi.connect@gmail.com" className="inline-flex items-center text-foreground/70 hover:text-brand-primary transition-colors">
-              <Mail className="w-4 h-4 mr-2" />
-              Let&apos;s chat!
-            </Link>
-            <Link
-              href="https://topmate.io/kanishk_tyagi10/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center text-foreground/70 hover:text-brand-secondary transition-colors"
-            >
-              <CalendarClock className="w-4 h-4 mr-2" />
-              Book a 1:1 on Topmate
-            </Link>
+            <div className="flex flex-col items-start gap-3">
+              <Link href="mailto:kanishktyagi.connect@gmail.com" className="inline-flex items-center text-foreground/70 hover:text-brand-primary transition-colors">
+                <Mail className="mr-2 h-4 w-4 shrink-0" />
+                Let&apos;s chat!
+              </Link>
+              <Link
+                href="https://topmate.io/kanishk_tyagi10/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-foreground/70 hover:text-brand-secondary transition-colors"
+              >
+                <CalendarClock className="mr-2 h-4 w-4 shrink-0" />
+                Book a 1:1 on Topmate
+              </Link>
+            </div>
           </div>
         </div>
         
-        <div className="border-t border-card-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/60">
+        <div className="mt-12 border-t border-card-border pt-8 text-center text-sm text-foreground/60">
           <p>&copy; {new Date().getFullYear()} Kanishk Tyagi. All rights reserved.</p>
-          <p className="mt-2 md:mt-0">Built with Next.js & Tailwind CSS</p>
         </div>
       </div>
     </footer>

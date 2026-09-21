@@ -2,49 +2,47 @@
 
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
-
-const PROJECTS = [
-  {
-    title: "HireSphere Social Manager",
-    description: "An AI-powered social media management dashboard built for personal brands. Features event scheduling, content creation, and analytics to track community growth.",
-    tags: ["Next.js", "Tailwind CSS", "Supabase", "OpenAI"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://hiresphere.example.com",
-  },
-  {
-    title: "DevConnect Community Portal",
-    description: "A central hub for developers to find local events, join discussions, and collaborate on open source projects. Built with real-time chat functionality.",
-    tags: ["React", "Node.js", "PostgreSQL", "Socket.io"],
-    githubUrl: "https://github.com",
-  },
-  {
-    title: "AI Resume Builder",
-    description: "A web application that takes user input and generates ATS-friendly resumes using Gemini API to optimize bullet points.",
-    tags: ["Next.js", "TypeScript", "Gemini API", "Tailwind"],
-    githubUrl: "https://github.com",
-    liveUrl: "https://resume-ai.example.com",
-  },
-  {
-    title: "Portfolio CMS Template",
-    description: "An open-source portfolio template for developers. Includes a Notion-like CMS interface built from scratch for easy content updates.",
-    tags: ["Vue", "Nuxt", "Firebase", "CSS Modules"],
-    githubUrl: "https://github.com",
-  },
-];
+import { ARCHIVED_PROJECTS, FEATURED_PROJECTS } from "@/data/projects";
 
 export default function ProjectsPage() {
   return (
     <div className="container mx-auto px-6 md:px-12 py-12">
-      <SectionHeading 
-        title="My Projects" 
-        subtitle="A collection of applications, tools, and experiments I've built to solve problems and learn new technologies." 
+      <SectionHeading
+        title="My Projects"
+        subtitle="Production applications and selected experiments from my public GitHub work. Every entry links to its real repository."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {PROJECTS.map((project, index) => (
-          <ProjectCard key={index} {...project} index={index} />
-        ))}
-      </div>
+      <section aria-labelledby="featured-projects">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary mb-2">
+            Selected work
+          </p>
+          <h2 id="featured-projects" className="text-2xl md:text-3xl font-bold">
+            Featured deployments
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {FEATURED_PROJECTS.map((project, index) => (
+            <ProjectCard key={project.githubUrl} {...project} index={index} />
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="project-archive" className="mt-20">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-secondary mb-2">
+            Learning & exploration
+          </p>
+          <h2 id="project-archive" className="text-2xl md:text-3xl font-bold">
+            Project archive
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ARCHIVED_PROJECTS.map((project, index) => (
+            <ProjectCard key={project.githubUrl} {...project} index={index} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

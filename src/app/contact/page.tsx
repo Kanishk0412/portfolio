@@ -124,7 +124,7 @@ export default function ContactPage() {
               <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://www.instagram.com/hiresphere.in/" target="_blank" rel="noopener noreferrer" className="p-3 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white border border-card-border">
+              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" className="p-3 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white border border-card-border">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>

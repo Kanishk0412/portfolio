@@ -10,6 +10,9 @@ interface ProjectCardProps {
   title: string;
   description: string;
   tags: string[];
+  category?: string;
+  year?: string;
+  featured?: boolean;
   githubUrl?: string;
   liveUrl?: string;
   className?: string;
@@ -20,6 +23,9 @@ export function ProjectCard({
   title,
   description,
   tags,
+  category,
+  year,
+  featured = false,
   githubUrl,
   liveUrl,
   className,
@@ -33,10 +39,17 @@ export function ProjectCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className={cn(
         "group relative bg-card-bg border border-card-border rounded-2xl overflow-hidden hover:border-brand-primary/50 transition-colors duration-300",
+        featured && "bg-gradient-to-br from-card-bg to-brand-primary/5",
         className
       )}
     >
       <div className="p-6 md:p-8 flex flex-col h-full">
+        {(category || year) && (
+          <div className="flex items-center justify-between gap-4 mb-4 text-xs font-semibold uppercase tracking-[0.16em]">
+            <span className="text-brand-primary">{category}</span>
+            <span className="text-foreground/40">{year}</span>
+          </div>
+        )}
         <h3 className="text-xl font-bold mb-3 group-hover:text-brand-primary transition-colors">
           {title}
         </h3>

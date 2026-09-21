@@ -5,6 +5,8 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { EventCard } from "@/components/EventCard";
 import { Stats } from "@/components/Stats";
 import { ProfileImage } from "@/components/ProfileImage";
+import { FEATURED_PROJECTS } from "@/data/projects";
+import { FEATURED_EVENTS } from "@/data/events";
 
 export default function Home() {
   return (
@@ -49,29 +51,17 @@ export default function Home() {
         <div className="flex justify-between items-end mb-12">
           <SectionHeading
             title="Featured Projects"
-            subtitle="Some of my recent work in web development and AI."
+            subtitle="A selection of production applications from my public GitHub work."
           />
           <Link href="/projects" className="hidden md:flex items-center text-brand-primary hover:text-brand-secondary transition-colors font-medium mb-16">
             View all projects <ChevronRight className="w-4 h-4 ml-1" />
           </Link>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ProjectCard
-            title="HireSphere Social Manager"
-            description="An AI-powered social media management dashboard built for personal brands. Features event scheduling, content creation, and analytics."
-            tags={["Next.js", "Tailwind CSS", "Supabase", "OpenAI"]}
-            githubUrl="https://github.com"
-            liveUrl="https://hiresphere.example.com"
-            index={0}
-          />
-          <ProjectCard
-            title="DevConnect Community Portal"
-            description="A central hub for developers to find local events, join discussions, and collaborate on open source projects."
-            tags={["React", "Node.js", "PostgreSQL", "Socket.io"]}
-            githubUrl="https://github.com"
-            index={1}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {FEATURED_PROJECTS.slice(0, 3).map((project, index) => (
+            <ProjectCard key={project.githubUrl} {...project} index={index} />
+          ))}
         </div>
         <div className="mt-8 text-center md:hidden">
           <Link href="/projects" className="inline-flex items-center text-brand-primary hover:text-brand-secondary transition-colors font-medium">
@@ -83,8 +73,8 @@ export default function Home() {
       <section className="container mx-auto px-6 md:px-12">
         <div className="flex justify-between items-end mb-12">
           <SectionHeading
-            title="Recent Talks & Events"
-            subtitle="I love sharing knowledge and building tech communities."
+            title="Featured Talks & Events"
+            subtitle="Selected highlights from speaking, judging, mentoring, and building tech communities."
           />
           <Link href="/events" className="hidden md:flex items-center text-brand-primary hover:text-brand-secondary transition-colors font-medium mb-16">
             View all events <ChevronRight className="w-4 h-4 ml-1" />
@@ -92,24 +82,9 @@ export default function Home() {
         </div>
 
         <div className="space-y-6">
-          <EventCard
-            title="Hack-N-Win 3.0 — Mentor"
-            role="Mentor"
-            organization="CGC University · D4 Community"
-            location="Mohali, India"
-            date="April 2026"
-            description="Returned as a mentor at Hack-N-Win 3.0 to support student innovators. After mentoring at 2.0, it felt great to come back and help another batch of builders turn rough ideas into working prototypes."
-            index={0}
-          />
-          <EventCard
-            title="GDG On Campus Hackathon — SCRIET"
-            role={["Speaker", "Judge"]}
-            organization="GDG On Campus · SCRIET, Meerut"
-            location="Meerut, India"
-            date="February 2026"
-            description="Spoke on the latest AI capabilities in Firebase and judged student projects that blended AI, creativity, and problem-solving under time pressure."
-            index={1}
-          />
+          {FEATURED_EVENTS.map((event, index) => (
+            <EventCard key={event.title} {...event} index={index} />
+          ))}
         </div>
         <div className="mt-8 text-center md:hidden">
           <Link href="/events" className="inline-flex items-center text-brand-primary hover:text-brand-secondary transition-colors font-medium">
