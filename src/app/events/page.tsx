@@ -14,8 +14,6 @@ const FILTERS: ("All" | EventRole)[] = [
   "Organizer",
   "Attendee",
   "Community",
-  "Resource",
-  "Milestone",
 ];
 
 export default function EventsPage() {
@@ -34,7 +32,7 @@ export default function EventsPage() {
     <div className="container mx-auto px-6 py-12 md:px-12">
       <SectionHeading
         title="Events & Community"
-        subtitle="Talks, hackathons, community updates, and learning resources — consolidated into unique entries with their original post imagery."
+        subtitle="Talks, hackathons, and community events — consolidated into unique entries with their original post imagery."
       />
 
       <div className="mb-10 flex flex-col gap-5 rounded-2xl border border-card-border bg-card-bg p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
@@ -55,7 +53,7 @@ export default function EventsPage() {
         </a>
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-3" aria-label="Filter posts by role">
+      <div className="mb-6 flex flex-wrap gap-3" aria-label="Filter events by role">
         {FILTERS.map((filter) => (
           <button
             key={filter}
@@ -74,7 +72,7 @@ export default function EventsPage() {
       </div>
 
       <p className="mb-10 text-sm text-foreground/55" aria-live="polite">
-        Showing {filteredEvents.length} {filteredEvents.length === 1 ? "post" : "posts"}
+        Showing {filteredEvents.length} {filteredEvents.length === 1 ? "event" : "events"}
         {activeFilter === "All" ? "" : ` tagged ${activeFilter}`}
       </p>
 
@@ -84,7 +82,7 @@ export default function EventsPage() {
         ))}
         {filteredEvents.length === 0 && (
           <div className="rounded-2xl border border-dashed border-card-border py-24 text-center text-foreground/50">
-            No posts found for the selected filter.
+            No events found for the selected filter.
           </div>
         )}
       </div>

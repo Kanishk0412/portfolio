@@ -12,9 +12,7 @@ export type EventRole =
   | "Mentor"
   | "Organizer"
   | "Attendee"
-  | "Community"
-  | "Resource"
-  | "Milestone";
+  | "Community";
 
 export type EventMedia =
   | { type: "image"; src: string }
@@ -40,8 +38,6 @@ const roleColors: Record<EventRole, string> = {
   Organizer: "bg-orange-500/10 text-orange-500 border-orange-500/20",
   Attendee: "bg-pink-500/10 text-pink-500 border-pink-500/20",
   Community: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  Resource: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
-  Milestone: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
 };
 
 export function EventCard({
