@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { MotionProvider } from "@/components/MotionProvider";
 import { AmbientBackground } from "@/components/motion/AmbientBackground";
-import { SITE_NAME, SITE_URL } from "@/lib/metadata";
+import { SHARE_IMAGE, SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,8 +32,14 @@ export const metadata: Metadata = {
     url: "/",
     siteName: SITE_NAME,
     type: "website",
+    images: [SHARE_IMAGE],
   },
-  twitter: { card: "summary_large_image", title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [SHARE_IMAGE],
+  },
 };
 
 // Animated content starts hidden and is revealed by JavaScript, so show it without JavaScript.
