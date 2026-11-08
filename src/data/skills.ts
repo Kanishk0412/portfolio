@@ -1,0 +1,17 @@
+export const SKILLS = [
+  "MERN Stack",
+  "MongoDB",
+  "Express.js",
+  "React",
+  "Node.js",
+  "Next.js",
+  "TypeScript",
+  "Python",
+  "Power BI",
+  "Data Analysis",
+  "NumPy",
+  "Pandas",
+  "scikit-learn",
+  "Artificial Intelligence",
+  "AI Agents",
+];

@@ -1,6 +1,8 @@
 "use client";
 
 import { SectionHeading } from "@/components/SectionHeading";
+import { TiltCard } from "@/components/motion/TiltCard";
+import { SKILLS } from "@/data/skills";
 import { motion, useScroll } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -13,24 +15,6 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
-
-const skills = [
-  "MERN Stack",
-  "MongoDB",
-  "Express.js",
-  "React",
-  "Node.js",
-  "Next.js",
-  "TypeScript",
-  "Python",
-  "Power BI",
-  "Data Analysis",
-  "NumPy",
-  "Pandas",
-  "scikit-learn",
-  "Artificial Intelligence",
-  "AI Agents",
-];
 
 const communityExperience = [
   {
@@ -97,7 +81,7 @@ export default function AboutPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-card-border bg-card-bg shadow-2xl">
+          <TiltCard maxTilt={4} className="aspect-[4/5] overflow-hidden rounded-3xl border border-card-border bg-card-bg shadow-2xl">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/profile.jpg"
@@ -108,7 +92,7 @@ export default function AboutPage() {
                   "https://ui-avatars.com/api/?name=Kanishk+Tyagi&background=18181b&color=fafafa&size=800";
               }}
             />
-          </div>
+          </TiltCard>
 
           <div className="rounded-2xl border border-card-border bg-card-bg p-6">
             <div className="mb-4 flex items-center gap-3">
@@ -116,13 +100,17 @@ export default function AboutPage() {
               <h2 className="text-xl font-bold">Technical Toolkit</h2>
             </div>
             <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <span
+              {SKILLS.map((skill, index) => (
+                <motion.span
                   key={skill}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: index * 0.03 }}
                   className="rounded-full border border-card-border bg-background px-3 py-1 text-sm font-medium"
                 >
                   {skill}
-                </span>
+                </motion.span>
               ))}
             </div>
           </div>
@@ -254,9 +242,10 @@ export default function AboutPage() {
 
         <div className="grid gap-5 md:grid-cols-2">
           {communityExperience.map((item, index) => (
-            <article
+            <TiltCard
               key={`${item.community}-${item.period}`}
-              className="relative overflow-hidden rounded-2xl border border-card-border bg-card-bg p-6"
+              maxTilt={3}
+              className="overflow-hidden rounded-2xl border border-card-border bg-card-bg p-6"
             >
               <span className="absolute right-5 top-5 text-5xl font-black text-foreground/[0.04]">
                 {String(index + 1).padStart(2, "0")}
@@ -271,7 +260,7 @@ export default function AboutPage() {
               <p className="mt-4 max-w-xl leading-relaxed text-foreground/70">
                 {item.description}
               </p>
-            </article>
+            </TiltCard>
           ))}
         </div>
 

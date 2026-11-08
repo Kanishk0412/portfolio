@@ -38,7 +38,7 @@ const Stat = ({ label, value, suffix, index }: StatProps) => {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: DURATION.base, delay: index * 0.1, ease: EASE_OUT }}
-      className="p-6 bg-card-bg border border-card-border rounded-2xl text-center flex flex-col items-center justify-center"
+      className="glass p-6 rounded-2xl text-center flex flex-col items-center justify-center"
     >
       <div className="text-4xl md:text-5xl font-bold text-white mb-2 flex items-baseline tabular-nums">
         <span ref={numberRef}>{value}</span>

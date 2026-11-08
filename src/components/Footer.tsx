@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, CalendarClock } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FooterWordmark } from "@/components/FooterWordmark";
 
 export function Footer() {
   return (
@@ -60,6 +61,7 @@ export function Footer() {
           <p>&copy; {new Date().getFullYear()} Kanishk Tyagi. All rights reserved.</p>
         </div>
       </div>
+      <FooterWordmark />
     </footer>
   );
 }

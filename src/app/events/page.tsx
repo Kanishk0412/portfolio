@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { FaInstagram } from "react-icons/fa";
 import { SectionHeading } from "@/components/SectionHeading";
 import { EventCard, type EventRole } from "@/components/EventCard";
@@ -18,7 +18,14 @@ const FILTERS: ("All" | EventRole)[] = [
   "Community",
 ];
 
+const countFor = (filter: (typeof FILTERS)[number]) =>
+  filter === "All"
+    ? INSTAGRAM_EVENTS.length
+    : INSTAGRAM_EVENTS.filter((event) => [event.role].flat().includes(filter)).length;
+
 export default function EventsPage() {
+  const listRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 70%", "end 80%"] });
   const [activeFilter, setActiveFilter] = useState<(typeof FILTERS)[number]>("All");
 
   const filteredEvents =
@@ -76,6 +83,7 @@ export default function EventsPage() {
               />
             )}
             {filter}
+            <span className="ml-1.5 font-mono text-xs opacity-60">{countFor(filter)}</span>
           </button>
         ))}
       </div>
@@ -86,6 +94,14 @@ export default function EventsPage() {
       </p>
 
       {/* The list fades as one block: animating the layout of many tall cards would stutter. */}
+      <div ref={listRef} className="relative md:pl-10">
+        {/* Spine that fills as the visitor moves through the list. */}
+        <div aria-hidden="true" className="absolute inset-y-0 left-0 hidden w-px bg-card-border md:block">
+          <motion.div
+            style={{ scaleY: scrollYProgress }}
+            className="h-full w-full origin-top bg-gradient-to-b from-brand-primary to-brand-secondary motion-reduce:hidden"
+          />
+        </div>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={activeFilter}
@@ -105,6 +121,7 @@ export default function EventsPage() {
           )}
         </motion.div>
       </AnimatePresence>
+      </div>
     </div>
   );
 }

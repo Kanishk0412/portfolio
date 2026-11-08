@@ -1,25 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SplitText } from "@/components/motion/SplitText";
+import { DURATION, EASE_OUT } from "@/lib/motion";
 
-export function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
+export function SectionHeading({
+  title,
+  subtitle,
+  eyebrow,
+}: {
+  title: string;
+  subtitle?: string;
+  eyebrow?: string;
+}) {
   return (
     <div className="mb-12 md:mb-16 text-center md:text-left">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-3xl md:text-4xl font-bold tracking-tight mb-4"
-      >
-        {title}
-      </motion.h2>
+      {eyebrow && (
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: DURATION.base, ease: EASE_OUT }}
+          className="mb-4 font-mono text-xs font-medium uppercase tracking-[0.22em] text-brand-primary"
+        >
+          {eyebrow}
+        </motion.p>
+      )}
+      <SplitText text={title} className="text-3xl md:text-5xl font-bold tracking-tight mb-4" />
       {subtitle && (
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: DURATION.base, delay: 0.2, ease: EASE_OUT }}
           className="text-foreground/70 max-w-2xl text-lg"
         >
           {subtitle}
@@ -29,8 +42,8 @@ export function SectionHeading({ title, subtitle }: { title: string; subtitle?: 
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="h-1 w-20 bg-brand-primary mt-6 mx-auto md:mx-0 origin-left rounded-full"
+        transition={{ duration: 0.8, delay: 0.3, ease: EASE_OUT }}
+        className="h-0.5 w-20 bg-gradient-to-r from-brand-primary to-brand-secondary mt-6 mx-auto md:mx-0 origin-left rounded-full"
       />
     </div>
   );

@@ -90,7 +90,7 @@ export default function ContactPage() {
           transition={{ duration: 0.5 }}
           className="w-full lg:w-1/3 space-y-8"
         >
-          <div className="bg-card-bg border border-card-border rounded-3xl p-8 shadow-xl">
+          <div className="bg-card-bg border border-card-border rounded-3xl p-6 sm:p-8 shadow-xl">
             <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
             <p className="text-foreground/70 mb-8">
               Fill out the form and I will get back to you within 24 hours.
@@ -98,10 +98,10 @@ export default function ContactPage() {
             
             <div className="space-y-4 mb-12">
               <Link href="mailto:kanishktyagi.connect@gmail.com" className="flex items-center text-foreground/80 hover:text-brand-primary transition-colors">
-                <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center mr-4">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-brand-primary/10 flex items-center justify-center mr-4">
                   <Mail className="w-5 h-5 text-brand-primary" />
                 </div>
-                kanishktyagi.connect@gmail.com
+                <span className="min-w-0 break-all">kanishktyagi.connect@gmail.com</span>
               </Link>
               <Link
                 href="https://topmate.io/kanishk_tyagi10/"
@@ -109,7 +109,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="flex items-center text-foreground/80 hover:text-brand-secondary transition-colors"
               >
-                <div className="w-10 h-10 rounded-full bg-brand-secondary/10 flex items-center justify-center mr-4">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-brand-secondary/10 flex items-center justify-center mr-4">
                   <CalendarClock className="w-5 h-5 text-brand-secondary" />
                 </div>
                 Book a 1:1 session on Topmate
@@ -118,13 +118,13 @@ export default function ContactPage() {
 
             <h4 className="font-semibold text-lg mb-4">Follow Me</h4>
             <div className="flex space-x-4">
-              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
+              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
                 <FaGithub className="w-5 h-5" />
               </Link>
-              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
+              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" className="p-3 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white border border-card-border">
+              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-3 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white border border-card-border">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>
@@ -137,7 +137,7 @@ export default function ContactPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="w-full lg:w-2/3"
         >
-          <div className="bg-card-bg border border-card-border rounded-3xl p-8 shadow-xl">
+          <div className="gradient-border bg-card-bg border border-card-border rounded-3xl p-6 sm:p-8 shadow-xl">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Honeypot field — hidden from real users, catches naive bots.
                   Zero-size + clipped so it never affects layout or scroll width. */}
@@ -212,10 +212,16 @@ export default function ContactPage() {
               )}
 
               {status === "success" ? (
-                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-xl flex items-center justify-center text-sm font-medium">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 20 }}
+                  role="status"
+                  className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-xl flex items-center justify-center text-sm font-medium"
+                >
                   <CheckCircle className="w-5 h-5 mr-2" />
                   Message sent successfully!
-                </div>
+                </motion.div>
               ) : (
                 <button
                   type="submit"

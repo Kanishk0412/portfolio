@@ -6,6 +6,7 @@ export type PortfolioProject = {
   year: string;
   githubUrl: string;
   liveUrl?: string;
+  image?: string;
   featured?: boolean;
 };
 
@@ -21,6 +22,7 @@ export const PROJECTS: PortfolioProject[] = [
     year: "2026",
     githubUrl: "https://github.com/Kanishk0412/dair-studios",
     liveUrl: "https://dair-studios.vercel.app",
+    image: "/projects/dair-studios.jpg",
     featured: true,
   },
   {
@@ -32,6 +34,7 @@ export const PROJECTS: PortfolioProject[] = [
     year: "2026",
     githubUrl: "https://github.com/Kanishk0412/cashiogold",
     liveUrl: "https://cashiogold.vercel.app",
+    image: "/projects/cashio-gold.jpg",
     featured: true,
   },
   {
@@ -43,6 +46,7 @@ export const PROJECTS: PortfolioProject[] = [
     year: "2026",
     githubUrl: "https://github.com/Kanishk0412/pg-manager",
     liveUrl: "https://pg-manager-psi.vercel.app",
+    image: "/projects/pg-manager.jpg",
     featured: true,
   },
   {

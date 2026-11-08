@@ -326,7 +326,7 @@ export function EventCard({
                 >
                   <ChevronRight className="h-5 w-5" aria-hidden="true" />
                 </button>
-                <div className="absolute bottom-3 left-1/2 flex max-w-[75%] -translate-x-1/2 gap-1.5 rounded-full bg-black/60 px-3 py-2 backdrop-blur-sm">
+                <div className="absolute bottom-3 left-1/2 flex max-w-[75%] -translate-x-1/2 flex-wrap justify-center gap-1.5 rounded-full bg-black/60 px-3 py-2 backdrop-blur-sm">
                   {media.map((item, dotIndex) => (
                     <button
                       key={item.src}
@@ -335,7 +335,7 @@ export function EventCard({
                       aria-label={`Show image ${dotIndex + 1}`}
                       aria-current={activeSlide === dotIndex ? "true" : undefined}
                       className={cn(
-                        "h-1.5 rounded-full transition-all",
+                        "relative h-1.5 rounded-full transition-all after:absolute after:-inset-x-1 after:-inset-y-3 after:content-['']",
                         activeSlide === dotIndex ? "w-4 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
                       )}
                     />
