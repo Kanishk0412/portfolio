@@ -1,51 +1,24 @@
 import Link from "next/link";
-import { ArrowRight, ChevronRight, FileText } from "lucide-react";
+import { ChevronRight, FileText } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
-import { EventCard } from "@/components/EventCard";
+import { CompactEventCard } from "@/components/EventCard";
+import { CommunityMarquee } from "@/components/CommunityMarquee";
+import { Hero } from "@/components/Hero";
 import { Stats } from "@/components/Stats";
-import { ProfileImage } from "@/components/ProfileImage";
 import { FEATURED_PROJECTS } from "@/data/projects";
 import { FEATURED_EVENTS } from "@/data/events";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-24 md:gap-32">
-      <section className="container mx-auto px-6 md:px-12 pt-12 md:pt-24 flex flex-col items-center text-center">
-        <div className="mb-8 relative inline-block">
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-card-border overflow-hidden bg-card-bg relative z-10 shadow-2xl">
-            <ProfileImage className="w-full h-full object-cover" />
-          </div>
-          <div className="absolute -inset-4 bg-gradient-to-r from-brand-primary/20 to-brand-secondary/20 blur-2xl -z-10 rounded-full" />
-        </div>
-        
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-          Hi, I&apos;m Kanishk Tyagi
-        </h1>
-        <p className="text-xl md:text-2xl text-foreground/70 mb-10 max-w-3xl">
-          Developer | Tech Speaker | Community Builder
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <Link
-            href="/projects"
-            className="px-8 py-4 bg-white text-black hover:bg-white/90 rounded-full font-semibold transition-colors flex items-center justify-center group"
-          >
-            View Projects
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            href="/events"
-            className="px-8 py-4 bg-card-bg border border-card-border hover:bg-card-bg/80 hover:border-brand-primary/50 text-white rounded-full font-semibold transition-colors flex items-center justify-center"
-          >
-            Explore Events
-          </Link>
-        </div>
-      </section>
+      <Hero />
 
       <section className="container mx-auto px-6 md:px-12">
         <Stats />
       </section>
+
+      <CommunityMarquee />
 
       <section className="container mx-auto px-6 md:px-12">
         <div className="flex justify-between items-end mb-12">
@@ -81,9 +54,9 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURED_EVENTS.map((event, index) => (
-            <EventCard key={event.title} {...event} index={index} />
+            <CompactEventCard key={event.title} {...event} index={index} />
           ))}
         </div>
         <div className="mt-8 text-center md:hidden">

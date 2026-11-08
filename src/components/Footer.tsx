@@ -28,13 +28,13 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Connect</h3>
             <div className="mb-5 flex gap-4">
-              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
+              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
                 <FaGithub className="w-5 h-5" />
               </Link>
-              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
+              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
+              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>

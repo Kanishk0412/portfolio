@@ -84,11 +84,11 @@ export const INSTAGRAM_EVENTS: EventEntry[] = [
   {
     title: "GeeksforGeeks Hackathon — Judge",
     role: "Judge",
-    organization: "GeeksforGeeks · Hack Driven",
+    organization: "GeeksforGeeks · Hack Briven",
     location: "Community Hackathon",
     date: "Sep 21, 2026",
     description:
-      "Judged innovative student projects at a GeeksforGeeks hackathon organized by the Hack Driven community, with a focus on strong ideas, thoughtful execution, and real-world impact.",
+      "Judged innovative student projects at a GeeksforGeeks hackathon organized by the Hack Briven community, with a focus on strong ideas, thoughtful execution, and real-world impact.",
     media: postImages("DdioLVdmSp2", 5),
     instagramUrls: postLinks("DdioLVdmSp2"),
   },
@@ -153,7 +153,7 @@ export const INSTAGRAM_EVENTS: EventEntry[] = [
   {
     title: "Hackathon at Masters’ Union",
     role: ["Speaker", "Judge"],
-    organization: "Hack Driven · Masters’ Union",
+    organization: "Hack Briven · Masters’ Union",
     location: "Masters’ Union",
     date: "May 11, 2026",
     description:

@@ -1,7 +1,8 @@
 "use client";
 
 import { SectionHeading } from "@/components/SectionHeading";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
+import { useRef } from "react";
 import {
   ArrowRight,
   Briefcase,
@@ -68,7 +69,20 @@ const talkHighlights = [
   "Data analysis, Python, and developer tools",
 ];
 
+const timelineDot = {
+  initial: { scale: 0 },
+  whileInView: { scale: 1 },
+  viewport: { once: true, margin: "-20% 0px" },
+  transition: { type: "spring", stiffness: 300, damping: 18 },
+} as const;
+
 export default function AboutPage() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: timelineProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 80%", "end 60%"],
+  });
+
   return (
     <div className="container mx-auto px-6 py-12 md:px-12">
       <SectionHeading
@@ -155,9 +169,14 @@ export default function AboutPage() {
               <Briefcase className="mr-3 h-6 w-6 text-brand-secondary" />
               Professional Experience
             </h2>
-            <div className="space-y-7 border-l-2 border-card-border pl-8">
+            <div ref={timelineRef} className="relative space-y-7 border-l-2 border-card-border pl-8">
+              <motion.span
+                aria-hidden="true"
+                style={{ scaleY: timelineProgress }}
+                className="absolute -left-0.5 inset-y-0 w-0.5 origin-top bg-gradient-to-b from-brand-secondary to-brand-primary motion-reduce:hidden"
+              />
               <div className="relative">
-                <span className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-brand-secondary" />
+                <motion.span {...timelineDot} className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-brand-secondary" />
                 <p className="text-sm font-semibold uppercase tracking-wider text-brand-secondary">
                   April 2026 – Present
                 </p>
@@ -167,7 +186,7 @@ export default function AboutPage() {
                 <p className="mt-1 text-foreground/70">Prodege</p>
               </div>
               <div className="relative">
-                <span className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-brand-primary" />
+                <motion.span {...timelineDot} className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-brand-primary" />
                 <p className="text-sm font-semibold uppercase tracking-wider text-brand-primary">
                   Independent
                 </p>

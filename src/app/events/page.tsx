@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { FaInstagram } from "react-icons/fa";
 import { SectionHeading } from "@/components/SectionHeading";
 import { EventCard, type EventRole } from "@/components/EventCard";
 import { INSTAGRAM_EVENTS } from "@/data/events";
+import { DURATION, EASE_OUT } from "@/lib/motion";
 
 const FILTERS: ("All" | EventRole)[] = [
   "All",
@@ -60,12 +62,19 @@ export default function EventsPage() {
             type="button"
             onClick={() => setActiveFilter(filter)}
             aria-pressed={activeFilter === filter}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+            className={`relative isolate rounded-full border px-5 py-2 text-sm font-medium transition-colors ${
               activeFilter === filter
-                ? "bg-brand-primary text-white"
-                : "border border-card-border bg-card-bg text-foreground/80 hover:border-brand-primary/50"
+                ? "border-transparent text-white"
+                : "border-card-border bg-card-bg text-foreground/80 hover:border-brand-primary/50"
             }`}
           >
+            {activeFilter === filter && (
+              <motion.span
+                layoutId="event-filter-pill"
+                transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                className="absolute -inset-px -z-10 rounded-full bg-brand-primary"
+              />
+            )}
             {filter}
           </button>
         ))}
@@ -76,16 +85,26 @@ export default function EventsPage() {
         {activeFilter === "All" ? "" : ` tagged ${activeFilter}`}
       </p>
 
-      <div className="space-y-8">
-        {filteredEvents.map((event, index) => (
-          <EventCard key={event.title} {...event} index={index} />
-        ))}
-        {filteredEvents.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-card-border py-24 text-center text-foreground/50">
-            No events found for the selected filter.
-          </div>
-        )}
-      </div>
+      {/* The list fades as one block: animating the layout of many tall cards would stutter. */}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={activeFilter}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: DURATION.fast, ease: EASE_OUT }}
+          className="space-y-8"
+        >
+          {filteredEvents.map((event, index) => (
+            <EventCard key={event.title} {...event} index={index} />
+          ))}
+          {filteredEvents.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-card-border py-24 text-center text-foreground/50">
+              No events found for the selected filter.
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
