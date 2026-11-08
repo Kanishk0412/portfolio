@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Building, Calendar, ChevronLeft, ChevronRight, ExternalLink, MapPin } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
+import { DURATION, EASE_OUT, trackCursorGlow } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export type EventRole =
@@ -12,9 +13,7 @@ export type EventRole =
   | "Mentor"
   | "Organizer"
   | "Attendee"
-  | "Community"
-  | "Resource"
-  | "Milestone";
+  | "Community";
 
 export type EventMedia =
   | { type: "image"; src: string }
@@ -40,9 +39,86 @@ const roleColors: Record<EventRole, string> = {
   Organizer: "bg-orange-500/10 text-orange-500 border-orange-500/20",
   Attendee: "bg-pink-500/10 text-pink-500 border-pink-500/20",
   Community: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  Resource: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
-  Milestone: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
 };
+
+/** Short card with a cover image, used where the full carousel would take too much room. */
+export function CompactEventCard({
+  title,
+  role,
+  organization,
+  date,
+  media = [],
+  instagramUrls = [],
+  index = 0,
+}: EventCardProps) {
+  const roles = Array.isArray(role) ? role : [role];
+  const cover = media[0];
+  const coverSrc = cover?.type === "video" ? cover.poster : cover?.src;
+  const postUrl = instagramUrls[0];
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: DURATION.base, delay: index * 0.1, ease: EASE_OUT }}
+      onPointerMove={trackCursorGlow}
+      className="card-glow group flex flex-col overflow-hidden rounded-2xl border border-card-border bg-card-bg hover:border-brand-primary/50 motion-safe:hover:-translate-y-1 transition-[translate,border-color] duration-300"
+    >
+      <div className="aspect-[4/3] overflow-hidden bg-background/60">
+        {coverSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={coverSrc}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="grid h-full w-full place-items-center bg-gradient-to-br from-brand-primary/30 via-card-bg to-brand-secondary/30"
+          >
+            <Calendar className="h-10 w-10 text-foreground/40" />
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          {roles.map((r) => (
+            <span
+              key={r}
+              className={cn("rounded-full border px-3 py-1 text-xs font-semibold", roleColors[r])}
+            >
+              {r}
+            </span>
+          ))}
+        </div>
+        <h3 className="mb-2 text-xl font-bold transition-colors group-hover:text-brand-primary">{title}</h3>
+        <p className="mb-1 text-sm text-foreground/70">{organization}</p>
+        <p className="mb-5 flex items-center text-sm text-foreground/50">
+          <Calendar className="mr-1.5 h-4 w-4" />
+          {date}
+        </p>
+        {postUrl && (
+          <a
+            href={postUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${title} on Instagram`}
+            className="relative z-10 mt-auto inline-flex w-fit items-center gap-2 text-sm font-semibold text-brand-secondary transition-colors hover:text-brand-primary"
+          >
+            <FaInstagram className="h-4 w-4" aria-hidden="true" />
+            View on Instagram
+            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </motion.article>
+  );
+}
 
 export function EventCard({
   title,
@@ -129,9 +205,10 @@ export function EventCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: Math.min(index * 0.05, 0.3) }}
+      transition={{ duration: DURATION.base, delay: Math.min(index * 0.05, 0.3), ease: EASE_OUT }}
+      onPointerMove={trackCursorGlow}
       className={cn(
-        "bg-card-bg border border-card-border rounded-2xl overflow-hidden group",
+        "card-glow bg-card-bg border border-card-border rounded-2xl overflow-hidden group hover:border-brand-primary/40 motion-safe:hover:-translate-y-1 transition-[translate,border-color] duration-300",
         className
       )}
     >

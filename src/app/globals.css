@@ -35,3 +35,106 @@ body {
   background-color: var(--brand-primary);
   color: white;
 }
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* Soft glow that follows the cursor; position is set by trackCursorGlow. */
+.card-glow {
+  position: relative;
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    color-mix(in srgb, var(--brand-primary) 12%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+@media (hover: hover) {
+  .card-glow:hover::before {
+    opacity: 1;
+  }
+}
+
+.hero-glow {
+  animation: hero-glow-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes hero-glow-drift {
+  from {
+    transform: translate(-12px, 6px) scale(1);
+  }
+  to {
+    transform: translate(12px, -6px) scale(1.15);
+  }
+}
+
+.marquee {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  animation: marquee-scroll 45s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-glow,
+  .marquee-track {
+    animation: none !important;
+  }
+
+  /* Without scrolling, show every name once and wrap to fit. */
+  .marquee {
+    mask-image: none;
+  }
+
+  .marquee-track {
+    width: auto;
+  }
+
+  .marquee-list {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 2.5rem;
+    padding-right: 0;
+  }
+
+  .marquee-duplicate {
+    display: none;
+  }
+}

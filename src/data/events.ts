@@ -32,19 +32,63 @@ const postLinks = (...codes: string[]) =>
   codes.map((code) => `https://www.instagram.com/p/${code}/`);
 
 /**
- * Unique events and updates from @kanishkcodez, newest first.
+ * Unique events from @kanishkcodez, newest first. Non-event posts are excluded.
  * Announcement and recap posts for the same event are merged into one entry;
  * every source post remains represented by its locally hosted cover image.
  */
 export const INSTAGRAM_EVENTS: EventEntry[] = [
   {
+    title: "Build Arena 2026 — Judge",
+    role: "Judge",
+    organization: "Hack Briven · Serverpod · Azure Developer Community",
+    location: "Microsoft Office, Sovereign Noida",
+    date: "Oct 30, 2026",
+    description:
+      "Joined the judging panel for Build Arena 2026, presented by Hack Briven and supported by Microsoft Azure, as innovators showcased their ideas and competed to build something extraordinary.",
+    media: [],
+    instagramUrls: postLinks("DfFh6uRE1ug"),
+  },
+  {
+    title: "MongoDB.local Bengaluru",
+    role: "Attendee",
+    organization: "MongoDB",
+    location: "Bengaluru, India",
+    date: "Sep 26, 2026",
+    description:
+      "Attended MongoDB.local Bengaluru for its technical sessions and conversations with the developer community.",
+    media: postImages("DdwuCX-k-AL", 1),
+    instagramUrls: postLinks("DdwuCX-k-AL"),
+  },
+  {
+    title: "AI Community Delhi Speaker Session",
+    role: "Organizer",
+    organization: "AI Community Delhi",
+    location: "Rez Cybercity",
+    date: "Sep 25, 2026",
+    description:
+      "Organized a speaker session with AI Community Delhi at Rez Cybercity, bringing together a great crowd for an energetic tech talk.",
+    media: postImages("DdvZWabk4RQ", 1),
+    instagramUrls: postLinks("DdvZWabk4RQ"),
+  },
+  {
+    title: "Build with AI at Google Gurugram",
+    role: "Organizer",
+    organization: "AI Community Delhi · Google",
+    location: "Google Office, Gurugram",
+    date: "Sep 22, 2026",
+    description:
+      "Co-organized Build with AI at the Google office in Gurugram with AI Community Delhi, a day of packed sessions and hands-on building.",
+    media: postImages("DdlpnpuGacC", 1),
+    instagramUrls: postLinks("DdlpnpuGacC"),
+  },
+  {
     title: "GeeksforGeeks Hackathon — Judge",
     role: "Judge",
-    organization: "GeeksforGeeks · Hack Driven",
+    organization: "GeeksforGeeks · Hack Briven",
     location: "Community Hackathon",
     date: "Sep 21, 2026",
     description:
-      "Judged innovative student projects at a GeeksforGeeks hackathon organized by the Hack Driven community, with a focus on strong ideas, thoughtful execution, and real-world impact.",
+      "Judged innovative student projects at a GeeksforGeeks hackathon organized by the Hack Briven community, with a focus on strong ideas, thoughtful execution, and real-world impact.",
     media: postImages("DdioLVdmSp2", 5),
     instagramUrls: postLinks("DdioLVdmSp2"),
   },
@@ -69,17 +113,6 @@ export const INSTAGRAM_EVENTS: EventEntry[] = [
       "Spoke about Web and AI at Technophilia and joined the judging panel to evaluate student hackathon projects.",
     media: postImages("DdhDgRMGflv", 5),
     instagramUrls: postLinks("DdhDgRMGflv"),
-  },
-  {
-    title: "The 44-Week MERN Learning Roadmap",
-    role: "Resource",
-    organization: "Kanishk Codez",
-    location: "Online",
-    date: "Aug 14, 2026",
-    description:
-      "A structured 44-week route for learning the MERN stack, shared as a practical guide for developers who want a clear path from fundamentals to complete applications.",
-    media: postImages("Db_ysxfE_i_", 10),
-    instagramUrls: postLinks("Db_ysxfE_i_"),
   },
   {
     title: "Agentic AI Mornings — Community Update",
@@ -120,7 +153,7 @@ export const INSTAGRAM_EVENTS: EventEntry[] = [
   {
     title: "Hackathon at Masters’ Union",
     role: ["Speaker", "Judge"],
-    organization: "Hack Driven · Masters’ Union",
+    organization: "Hack Briven · Masters’ Union",
     location: "Masters’ Union",
     date: "May 11, 2026",
     description:
@@ -193,28 +226,17 @@ export const INSTAGRAM_EVENTS: EventEntry[] = [
   },
   {
     title: "Code Nakshatra 2.0",
-    role: "Mentor",
-    organization: "Code Nakshatra",
-    location: "Hackathon Community",
-    date: "May 6, 2026",
+    role: ["Mentor", "Judge"],
+    organization: "Code Rangers · TIIPS",
+    location: "Greater Noida, India",
+    date: "May 7–8, 2026",
     description:
-      "Joined Code Nakshatra 2.0 as a mentor, guiding builders through their hackathon journey and helping them improve their solutions.",
-    media: postImages("DX--oasCRLd", 1),
-    instagramUrls: postLinks("DX--oasCRLd"),
-  },
-  {
-    title: "Bachelor of Engineering Graduation",
-    role: "Milestone",
-    organization: "Panjab University",
-    location: "Chandigarh, India",
-    date: "Apr 7, 2026",
-    description:
-      "A personal milestone marking the completion of a Bachelor of Engineering degree from Panjab University.",
+      "Joined this 24-hour campus hackathon as a mentor and judge, guiding builders and reviewing the impressive projects they created in a short span of time. The announcement and recap are combined here.",
     media: [
-      ...postVideo("DW1tB6iGtI2"),
-      ...postImages("DW1tB6iGtI2", 2, 2),
+      ...postImages("Ddo9XT2kzQz", 1),
+      ...postImages("DX--oasCRLd", 1),
     ],
-    instagramUrls: postLinks("DW1tB6iGtI2"),
+    instagramUrls: postLinks("Ddo9XT2kzQz", "DX--oasCRLd"),
   },
   {
     title: "Inception-X — Web Development & Web3",

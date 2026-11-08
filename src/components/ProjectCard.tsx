@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { DURATION, EASE_OUT, trackCursorGlow } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -36,9 +37,10 @@ export function ProjectCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: DURATION.base, delay: index * 0.1, ease: EASE_OUT }}
+      onPointerMove={trackCursorGlow}
       className={cn(
-        "group relative bg-card-bg border border-card-border rounded-2xl overflow-hidden hover:border-brand-primary/50 transition-colors duration-300",
+        "card-glow group bg-card-bg border border-card-border rounded-2xl overflow-hidden hover:border-brand-primary/50 motion-safe:hover:-translate-y-1 transition-[translate,border-color] duration-300",
         featured && "bg-gradient-to-br from-card-bg to-brand-primary/5",
         className
       )}
