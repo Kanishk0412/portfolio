@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { MotionProvider } from "@/components/MotionProvider";
 import { AmbientBackground } from "@/components/motion/AmbientBackground";
+import { SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,10 +17,28 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+const DEFAULT_TITLE = "Kanishk Tyagi | Developer & Tech Speaker";
+const DEFAULT_DESCRIPTION =
+  "Personal portfolio of Kanishk Tyagi - Developer, Tech Speaker, and Community Builder.";
+
 export const metadata: Metadata = {
-  title: "Kanishk Tyagi | Developer & Tech Speaker",
-  description: "Personal portfolio of Kanishk Tyagi - Developer, Tech Speaker, and Community Builder.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: DEFAULT_TITLE, template: `%s | ${SITE_NAME}` },
+  description: DEFAULT_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    url: "/",
+    siteName: SITE_NAME,
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION },
 };
+
+// Animated content starts hidden and is revealed by JavaScript, so show it without JavaScript.
+const NO_SCRIPT_STYLES =
+  "main [style*=opacity\\:0],main [style*=transform]:not(.orbit-spin-slow *),footer [style*=opacity\\:0],footer [style*=transform]{opacity:1!important;transform:none!important}";
 
 export default function RootLayout({
   children,
@@ -29,6 +48,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${spaceGrotesk.variable} dark scroll-smooth relative`}>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased flex flex-col selection:bg-brand-primary selection:text-white">
+        <noscript>
+          <style>{NO_SCRIPT_STYLES}</style>
+        </noscript>
         <AmbientBackground />
         <MotionProvider>
           <Navbar />

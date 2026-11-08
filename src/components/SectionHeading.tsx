@@ -8,10 +8,13 @@ export function SectionHeading({
   title,
   subtitle,
   eyebrow,
+  as = "h2",
 }: {
   title: string;
   subtitle?: string;
   eyebrow?: string;
+  /** Use "h1" when this is the main heading of the page. */
+  as?: "h1" | "h2";
 }) {
   return (
     <div className="mb-12 md:mb-16 text-center md:text-left">
@@ -26,7 +29,7 @@ export function SectionHeading({
           {eyebrow}
         </motion.p>
       )}
-      <SplitText text={title} className="text-3xl md:text-5xl font-bold tracking-tight mb-4" />
+      <SplitText as={as} text={title} className="text-3xl md:text-5xl font-bold tracking-tight mb-4" />
       {subtitle && (
         <motion.p
           initial={{ opacity: 0, y: 20 }}

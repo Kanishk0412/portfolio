@@ -10,6 +10,7 @@ export function ProfileImage({ className }: ProfileImageProps) {
     <img
       src="/profile.jpg"
       alt="Kanishk Tyagi"
+      fetchPriority="high"
       className={className}
       onError={(e) => {
         (e.target as HTMLImageElement).src =

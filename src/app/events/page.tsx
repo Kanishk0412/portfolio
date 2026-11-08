@@ -40,6 +40,7 @@ export default function EventsPage() {
   return (
     <div className="container mx-auto px-6 py-12 md:px-12">
       <SectionHeading
+        as="h1"
         title="Events & Community"
         subtitle="Talks, hackathons, and community events — consolidated into unique entries with their original post imagery."
       />

@@ -7,6 +7,7 @@ import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+const EMAIL = "kanishktyagi.connect@gmail.com";
 const LIMITS = { name: 100, email: 254, message: 2000 } as const;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -27,6 +28,8 @@ export default function ContactPage() {
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("Something went wrong. Please try again later.");
+  // True when the failure is on our side, so the visitor can email the message instead.
+  const [offerEmail, setOfferEmail] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,34 +45,44 @@ export default function ContactPage() {
     const validationError = validate(payload);
     if (validationError) {
       setErrorMsg(validationError);
+      setOfferEmail(false);
       setStatus("error");
       return;
     }
 
     setStatus("loading");
 
+    let response: Response;
     try {
-      const response = await fetch("/api/contact", {
+      response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = (await response.json().catch(() => null)) as { error?: string } | null;
-      if (!response.ok) {
-        throw new Error(result?.error ?? "Something went wrong. Please try again later.");
-      }
-
-      setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-      setWebsite("");
-      setTimeout(() => setStatus("idle"), 5000);
-    } catch (error) {
-      setErrorMsg(
-        error instanceof Error ? error.message : "Something went wrong. Please try again later.",
-      );
+    } catch {
+      setErrorMsg("Couldn't reach the server. Check your connection and try again.");
+      setOfferEmail(true);
       setStatus("error");
+      return;
     }
+
+    const result = (await response.json().catch(() => null)) as { error?: string } | null;
+    if (!response.ok) {
+      setErrorMsg(result?.error ?? "Something went wrong. Please try again later.");
+      setOfferEmail(response.status >= 500);
+      setStatus("error");
+      return;
+    }
+
+    setStatus("success");
+    setFormData({ name: "", email: "", message: "" });
+    setWebsite("");
+    setTimeout(() => setStatus("idle"), 5000);
   };
+
+  const mailtoHref = `mailto:${EMAIL}?subject=${encodeURIComponent(
+    `Message from ${formData.name.trim() || "your website"}`,
+  )}&body=${encodeURIComponent(formData.message)}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (status === "error") setStatus("idle");
@@ -78,7 +91,8 @@ export default function ContactPage() {
 
   return (
     <div className="container mx-auto px-6 md:px-12 py-12">
-      <SectionHeading 
+      <SectionHeading
+        as="h1"
         title="Get In Touch" 
         subtitle="Have a question or want to work together? Leave a message." 
       />
@@ -138,6 +152,11 @@ export default function ContactPage() {
           className="w-full lg:w-2/3"
         >
           <div className="gradient-border bg-card-bg border border-card-border rounded-3xl p-6 sm:p-8 shadow-xl">
+            <noscript>
+              <p className="mb-6 text-sm text-foreground/70">
+                This form needs JavaScript. You can email me at {EMAIL} instead.
+              </p>
+            </noscript>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Honeypot field — hidden from real users, catches naive bots.
                   Zero-size + clipped so it never affects layout or scroll width. */}
@@ -208,6 +227,14 @@ export default function ContactPage() {
               {status === "error" && (
                 <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-sm">
                   {errorMsg}
+                  {offerEmail && (
+                    <>
+                      {" "}
+                      <a href={mailtoHref} className="font-semibold underline underline-offset-2">
+                        Email your message instead
+                      </a>
+                    </>
+                  )}
                 </div>
               )}
 

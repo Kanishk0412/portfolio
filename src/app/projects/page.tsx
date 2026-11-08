@@ -8,6 +8,7 @@ export default function ProjectsPage() {
   return (
     <div className="container mx-auto px-6 md:px-12 py-12">
       <SectionHeading
+        as="h1"
         title="My Projects"
         subtitle="Production applications and selected experiments from my public GitHub work. Every entry links to its real repository."
       />

@@ -70,6 +70,7 @@ export default function AboutPage() {
   return (
     <div className="container mx-auto px-6 py-12 md:px-12">
       <SectionHeading
+        as="h1"
         title="About Me"
         subtitle="Developer, speaker, community builder, and lifelong learner."
       />
@@ -86,6 +87,7 @@ export default function AboutPage() {
             <img
               src="/profile.jpg"
               alt="Kanishk Tyagi"
+              fetchPriority="high"
               className="h-full w-full object-cover"
               onError={(event) => {
                 (event.target as HTMLImageElement).src =
