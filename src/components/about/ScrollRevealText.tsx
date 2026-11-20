@@ -19,7 +19,13 @@ export function ScrollRevealText({ text, className }: { text: string; className?
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 50%"] });
   const words = text.split(" ");
 
-  if (reduceMotion) return <p className={className}>{text}</p>;
+  if (reduceMotion) {
+    return (
+      <p ref={ref} className={className}>
+        {text}
+      </p>
+    );
+  }
 
   return (
     <p ref={ref} className={className} aria-label={text}>
