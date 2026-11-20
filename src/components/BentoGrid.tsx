@@ -110,7 +110,7 @@ function Network() {
   return (
     <svg aria-hidden="true" viewBox="0 0 300 150" className="h-auto w-full">
       {NETWORK.map((node) => (
-        <line key={`${node.x}-${node.y}`} x1={hub.x} y1={hub.y} x2={node.x} y2={node.y} stroke="#8b5cf6" strokeOpacity="0.6" className="dash-flow" />
+        <line key={`${node.x}-${node.y}`} x1={hub.x} y1={hub.y} x2={node.x} y2={node.y} strokeOpacity="0.6" className="dash-flow stroke-brand-secondary" />
       ))}
       {NETWORK.map((node, index) => (
         <circle
@@ -119,13 +119,12 @@ function Network() {
           cy={node.y}
           r="6"
           fill="#18181b"
-          stroke="#3b82f6"
           strokeWidth="1.5"
-          className="node-pulse"
+          className="node-pulse stroke-brand-primary"
           style={{ animationDelay: `${index * 0.4}s` }}
         />
       ))}
-      <circle cx={hub.x} cy={hub.y} r="11" fill="#3b82f6" className="node-pulse" />
+      <circle cx={hub.x} cy={hub.y} r="11" className="node-pulse fill-brand-primary" />
     </svg>
   );
 }
@@ -201,7 +200,7 @@ export function BentoGrid() {
             { label: "Mentored", value: mentored },
           ].map((item) => (
             <div key={item.label} className="min-w-0 rounded-xl border border-card-border bg-background/70 p-3 sm:p-4">
-              <dd className="text-gradient font-mono text-3xl font-bold">{item.value}</dd>
+              <dd className="font-mono text-3xl font-bold text-brand-primary">{item.value}</dd>
               <dt className="mt-1 text-xs font-medium text-foreground/60">{item.label}</dt>
             </div>
           ))}

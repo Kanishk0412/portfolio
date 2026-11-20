@@ -33,9 +33,9 @@ interface EventCardProps {
 }
 
 const roleColors: Record<EventRole, string> = {
-  Speaker: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-  Judge: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-  Mentor: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+  Speaker: "bg-brand-primary/10 text-brand-primary border-brand-primary/25",
+  Judge: "bg-brand-secondary/10 text-brand-secondary border-brand-secondary/25",
+  Mentor: "bg-violet-400/10 text-violet-400 border-violet-400/25",
   Organizer: "bg-orange-500/10 text-orange-500 border-orange-500/20",
   Attendee: "bg-pink-500/10 text-pink-500 border-pink-500/20",
   Community: "bg-amber-500/10 text-amber-500 border-amber-500/20",
@@ -358,7 +358,7 @@ export function EventCard({
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-secondary/30 bg-brand-secondary/10 px-4 py-2 text-sm font-semibold text-brand-secondary transition-colors hover:border-brand-secondary hover:bg-brand-secondary hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full border border-brand-secondary/30 bg-brand-secondary/10 px-4 py-2 text-sm font-semibold text-brand-secondary transition-colors hover:border-brand-secondary hover:bg-brand-secondary hover:text-on-brand"
               >
                 <FaInstagram className="h-4 w-4" aria-hidden="true" />
                 {instagramUrls.length === 1 ? "View on Instagram" : `View Instagram post ${postIndex + 1}`}

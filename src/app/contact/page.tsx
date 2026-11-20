@@ -132,13 +132,13 @@ export default function ContactPage() {
 
             <h4 className="font-semibold text-lg mb-4">Follow Me</h4>
             <div className="flex space-x-4">
-              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
+              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-on-brand border border-card-border">
                 <FaGithub className="w-5 h-5" />
               </Link>
-              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white border border-card-border">
+              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-on-brand border border-card-border">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-3 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white border border-card-border">
+              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-3 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-on-brand border border-card-border">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>
@@ -253,7 +253,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-4 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-semibold transition-colors flex items-center justify-center disabled:opacity-70"
+                  className="w-full py-4 bg-brand-primary hover:bg-brand-primary/90 text-on-brand rounded-xl font-semibold transition-colors flex items-center justify-center disabled:opacity-70"
                 >
                   {status === "loading" ? (
                     <>

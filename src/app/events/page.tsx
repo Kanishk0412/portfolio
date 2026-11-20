@@ -56,7 +56,7 @@ export default function EventsPage() {
           href="https://www.instagram.com/kanishkcodez/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-primary/40 bg-brand-primary/10 px-5 py-2.5 text-sm font-semibold text-brand-primary transition-colors hover:bg-brand-primary hover:text-on-brand"
         >
           <FaInstagram className="h-4 w-4" aria-hidden="true" />
           Visit Instagram profile
@@ -72,7 +72,7 @@ export default function EventsPage() {
             aria-pressed={activeFilter === filter}
             className={`relative isolate rounded-full border px-5 py-2 text-sm font-medium transition-colors ${
               activeFilter === filter
-                ? "border-transparent text-white"
+                ? "border-transparent text-on-brand"
                 : "border-card-border bg-card-bg text-foreground/80 hover:border-brand-primary/50"
             }`}
           >

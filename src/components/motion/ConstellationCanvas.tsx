@@ -2,12 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
-type Node = { x: number; y: number; vx: number; vy: number; violet: boolean };
+type Node = { x: number; y: number; vx: number; vy: number; accent: boolean };
 
 const LINK_DISTANCE = 130;
 const CURSOR_DISTANCE = 170;
-const BLUE = "59, 130, 246";
-const VIOLET = "139, 92, 246";
+// Brand lime and cyan, as RGB so the opacity can vary per line.
+const PRIMARY = "198, 244, 50";
+const SECONDARY = "34, 211, 238";
 
 /**
  * A slow network of connected points that reaches toward the cursor, a nod to
@@ -37,7 +38,7 @@ export function ConstellationCanvas({ className }: { className?: string }) {
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
-        violet: Math.random() > 0.6,
+        accent: Math.random() > 0.6,
       }));
     };
 
@@ -52,7 +53,7 @@ export function ConstellationCanvas({ className }: { className?: string }) {
           const distance = Math.hypot(node.x - other.x, node.y - other.y);
           if (distance > LINK_DISTANCE) continue;
 
-          context.strokeStyle = `rgba(${BLUE}, ${(1 - distance / LINK_DISTANCE) * 0.22})`;
+          context.strokeStyle = `rgba(${PRIMARY}, ${(1 - distance / LINK_DISTANCE) * 0.22})`;
           context.lineWidth = 1;
           context.beginPath();
           context.moveTo(node.x, node.y);
@@ -62,14 +63,14 @@ export function ConstellationCanvas({ className }: { className?: string }) {
 
         const toCursor = Math.hypot(node.x - cursor.x, node.y - cursor.y);
         if (toCursor < CURSOR_DISTANCE) {
-          context.strokeStyle = `rgba(${VIOLET}, ${(1 - toCursor / CURSOR_DISTANCE) * 0.55})`;
+          context.strokeStyle = `rgba(${SECONDARY}, ${(1 - toCursor / CURSOR_DISTANCE) * 0.55})`;
           context.beginPath();
           context.moveTo(node.x, node.y);
           context.lineTo(cursor.x, cursor.y);
           context.stroke();
         }
 
-        context.fillStyle = `rgba(${node.violet ? VIOLET : BLUE}, 0.75)`;
+        context.fillStyle = `rgba(${node.accent ? SECONDARY : PRIMARY}, 0.75)`;
         context.beginPath();
         context.arc(node.x, node.y, 1.6, 0, Math.PI * 2);
         context.fill();

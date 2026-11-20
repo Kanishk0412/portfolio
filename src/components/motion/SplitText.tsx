@@ -27,19 +27,22 @@ export function SplitText({
   className,
   highlight = [],
   breakAfter,
+  id,
 }: {
   text: string;
   as?: keyof typeof TAGS;
   className?: string;
-  /** Words to render with the brand gradient. */
+  /** Words to render in the italic serif accent. */
   highlight?: string[];
   /** Word to start a new line after. */
   breakAfter?: string;
+  id?: string;
 }) {
   const Tag = TAGS[as];
 
   return (
     <Tag
+      id={id}
       aria-label={text}
       variants={parent}
       initial="hidden"
@@ -52,11 +55,15 @@ export function SplitText({
           {/* Padding keeps descenders from being clipped by the mask. */}
           <span
             aria-hidden="true"
-            className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-bottom"
+            className={cn(
+              "inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-bottom",
+              // Room for the italic overhang, which the mask would otherwise clip.
+              highlight.includes(item) && "pr-[0.08em] -mr-[0.08em]"
+            )}
           >
             <motion.span
               variants={word}
-              className={cn("inline-block", highlight.includes(item) && "text-gradient")}
+              className={cn("inline-block", highlight.includes(item) && "text-accent")}
             >
               {item}
             </motion.span>

@@ -91,7 +91,7 @@ export function ProjectCard({
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/70 hover:text-white flex items-center text-sm font-medium transition-colors"
+                className="text-foreground/70 hover:text-foreground flex items-center text-sm font-medium transition-colors"
               >
                 <FaGithub className="w-4 h-4 mr-2" />
                 Source Code

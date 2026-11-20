@@ -8,30 +8,31 @@ import { ProfileImage } from "@/components/ProfileImage";
 import { ConstellationCanvas } from "@/components/motion/ConstellationCanvas";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { SplitText } from "@/components/motion/SplitText";
+import { INSTAGRAM_EVENTS } from "@/data/events";
 import { EASE_OUT, fadeUp, staggerChildren } from "@/lib/motion";
 
 const ROLES = ["Developer", "Tech Speaker", "Community Builder"];
 const ROLE_INTERVAL_MS = 2600;
 const ORBIT_CHIPS = ["Speaker", "Judge", "Mentor"];
 
+// Newest event, with the role suffix trimmed from titles like "Build Arena 2026 — Judge".
+const LATEST_EVENT = INSTAGRAM_EVENTS[0];
+const LATEST_ROLE = [LATEST_EVENT.role].flat()[0];
+const LATEST_NAME = LATEST_EVENT.title.split(" — ")[0];
+
 function Portrait() {
   return (
     <div className="hero-portrait-size relative mx-auto aspect-square w-56 sm:w-64 lg:w-[22rem] 2xl:w-[27rem] isolate">
-      <div className="hero-glow absolute inset-[-12%] -z-10 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.32),rgba(139,92,246,0.18)_45%,transparent_70%)]" />
-
-      {/* Orbit rings */}
-      <svg aria-hidden="true" viewBox="0 0 200 200" className="absolute inset-[-8%] orbit-spin overflow-visible">
-        <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(250,250,250,0.1)" strokeWidth="0.5" strokeDasharray="2 5" />
-      </svg>
+      {/* Orbit ring */}
       <svg aria-hidden="true" viewBox="0 0 200 200" className="absolute inset-[3%] orbit-spin-reverse overflow-visible">
         <defs>
           <linearGradient id="orbit-gradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+            <stop offset="0%" style={{ stopColor: "var(--brand-primary)" }} />
+            <stop offset="100%" style={{ stopColor: "var(--brand-secondary)", stopOpacity: 0 }} />
           </linearGradient>
         </defs>
         <circle cx="100" cy="100" r="98" fill="none" stroke="url(#orbit-gradient)" strokeWidth="1" />
-        <circle cx="100" cy="2" r="2.5" fill="#3b82f6" />
+        <circle cx="100" cy="2" r="2.5" className="fill-brand-primary" />
       </svg>
 
       {/* Photo */}
@@ -105,7 +106,7 @@ export function Hero() {
             text="Hi, I'm Kanishk Tyagi"
             highlight={["Kanishk", "Tyagi"]}
             breakAfter="I'm"
-            className="mb-6 text-5xl font-bold leading-[1.05] tracking-tight max-[359px]:text-4xl sm:text-6xl xl:text-7xl 2xl:text-8xl"
+            className="mb-6 text-5xl font-bold leading-[1.02] tracking-tight max-[359px]:text-4xl sm:text-7xl xl:text-8xl 2xl:text-9xl"
           />
 
           <motion.div
@@ -144,7 +145,7 @@ export function Hero() {
             <Magnetic>
               <Link
                 href="/projects"
-                className="group flex items-center justify-center rounded-full bg-white px-8 py-4 font-semibold text-black transition-colors hover:bg-white/90"
+                className="group flex items-center justify-center rounded-full bg-brand-primary px-8 py-4 font-semibold text-on-brand transition-colors hover:bg-brand-primary/90"
               >
                 View Projects
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -153,11 +154,32 @@ export function Hero() {
             <Magnetic>
               <Link
                 href="/contact"
-                className="glass flex items-center justify-center rounded-full px-8 py-4 font-semibold text-white transition-colors hover:border-brand-primary/50"
+                className="glass flex items-center justify-center rounded-full px-8 py-4 font-semibold text-foreground transition-colors hover:border-brand-primary/50"
               >
                 Invite me to speak
               </Link>
             </Magnetic>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.7 }}
+            className="hero-latest mt-10"
+          >
+            <Link
+              href="/events"
+              className="group inline-flex max-w-full items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-1.5 pr-4 text-sm text-foreground/70 transition-colors hover:border-brand-primary/40 hover:text-foreground"
+            >
+              <span className="shrink-0 rounded-full bg-brand-primary px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-on-brand">
+                Latest
+              </span>
+              <span className="truncate">
+                {LATEST_ROLE} · <span className="font-medium text-foreground">{LATEST_NAME}</span>
+              </span>
+              <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            </Link>
           </motion.div>
         </motion.div>
 

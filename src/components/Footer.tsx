@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Mail, CalendarClock } from "lucide-react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FooterCta } from "@/components/FooterCta";
 import { FooterWordmark } from "@/components/FooterWordmark";
 
 export function Footer() {
   return (
     <footer className="bg-card-bg border-t border-card-border mt-auto">
+      <FooterCta />
       <div className="container mx-auto px-6 md:px-12 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
@@ -29,13 +31,13 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Connect</h3>
             <div className="mb-5 flex gap-4">
-              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
+              <Link href="https://github.com/Kanishk0412" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-on-brand">
                 <FaGithub className="w-5 h-5" />
               </Link>
-              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-white">
+              <Link href="https://www.linkedin.com/in/kanishktyagi-connect/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-background rounded-full hover:bg-brand-primary transition-colors hover:text-on-brand">
                 <FaLinkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-white">
+              <Link href="https://www.instagram.com/kanishkcodez/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2 bg-background rounded-full hover:bg-brand-secondary transition-colors hover:text-on-brand">
                 <FaInstagram className="w-5 h-5" />
               </Link>
             </div>

@@ -1,337 +1,148 @@
 "use client";
 
-import { SectionHeading } from "@/components/SectionHeading";
-import { TiltCard } from "@/components/motion/TiltCard";
-import { SKILLS } from "@/data/skills";
-import { motion, useScroll } from "framer-motion";
-import { useRef } from "react";
-import {
-  ArrowRight,
-  Briefcase,
-  Code2,
-  ExternalLink,
-  GraduationCap,
-  Mic2,
-  Users,
-} from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight, Briefcase, CalendarCheck, Code2, ExternalLink, Sparkles, Users } from "lucide-react";
+import { AboutFaq } from "@/components/about/AboutFaq";
+import { AboutIntro } from "@/components/about/AboutIntro";
+import { JourneyTimeline } from "@/components/about/JourneyTimeline";
+import { RoleTabs } from "@/components/about/RoleTabs";
+import { ScrollRevealText } from "@/components/about/ScrollRevealText";
+import { SkillExplorer } from "@/components/about/SkillExplorer";
+import {
+  COMMUNITY_EXPERIENCE,
+  EVENT_COUNTS,
+  INSTAGRAM_URL,
+  LINKEDIN_URL,
+  PROJECT_COUNT,
+} from "@/components/about/aboutData";
+import { SectionHeading } from "@/components/SectionHeading";
+import { Stats } from "@/components/Stats";
+import { TiltCard } from "@/components/motion/TiltCard";
 
-const communityExperience = [
-  {
-    period: "2022",
-    role: "Lead",
-    community: "GDG on Campus UIET",
-    description:
-      "Led the campus developer community and created opportunities for students to learn, collaborate, and build together.",
-  },
-  {
-    period: "2023 – Present",
-    role: "Core Team Member",
-    community: "GDG Cloud Chandigarh",
-    description:
-      "Contributing to the Chandigarh developer ecosystem through community programs, technical sessions, and events.",
-  },
-  {
-    period: "Community journey",
-    role: "Community Member & Organizer",
-    community: "MongoDB User Group Chandigarh",
-    description:
-      "Helping bring developers together for practical conversations around MongoDB, data, and modern application development.",
-  },
-  {
-    period: "Current",
-    role: "Community Contributor & Organizer",
-    community: "AI Community Delhi",
-    description:
-      "Supporting AI-focused learning and events while connecting developers, speakers, and builders across the community.",
-  },
+const STORY =
+  "I'm Kanishk Tyagi, a customer experience professional, full-stack developer, speaker, and community builder. For more than three years I've been building in, and contributing to, the AI, web, and data communities. I enjoy turning ideas into useful digital products, sharing what I learn on stage, and creating spaces where developers learn from one another.";
+
+const ABOUT_STATS = [
+  { label: "Events on this site", value: EVENT_COUNTS.total, icon: CalendarCheck },
+  { label: "Communities", value: COMMUNITY_EXPERIENCE.length, icon: Users },
+  { label: "Projects on GitHub", value: PROJECT_COUNT, icon: Code2 },
+  // Matches "more than three years" in the story above.
+  { label: "Years in community", value: 3, suffix: "+", icon: Sparkles },
 ];
-
-const talkHighlights = [
-  "Artificial intelligence, AI agents, and Google ADK",
-  "Modern web and full-stack development",
-  "Data analysis, Python, and developer tools",
-];
-
-const timelineDot = {
-  initial: { scale: 0 },
-  whileInView: { scale: 1 },
-  viewport: { once: true, margin: "-20% 0px" },
-  transition: { type: "spring", stiffness: 300, damping: 18 },
-} as const;
 
 export default function AboutPage() {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: timelineProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start 80%", "end 60%"],
-  });
-
   return (
-    <div className="container mx-auto px-6 py-12 md:px-12">
-      <SectionHeading
-        as="h1"
-        title="About Me"
-        subtitle="Developer, speaker, community builder, and lifelong learner."
-      />
+    <div className="container mx-auto flex flex-col gap-28 px-6 py-12 md:gap-36 md:px-12">
+      <AboutIntro />
 
-      <div className="mt-12 grid items-start gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.7fr)] lg:gap-16">
-        <motion.aside
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-8"
-        >
-          <TiltCard maxTilt={4} className="aspect-[4/5] overflow-hidden rounded-3xl border border-card-border bg-card-bg shadow-2xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/profile.jpg"
-              alt="Kanishk Tyagi"
-              fetchPriority="high"
-              className="h-full w-full object-cover"
-              onError={(event) => {
-                (event.target as HTMLImageElement).src =
-                  "https://ui-avatars.com/api/?name=Kanishk+Tyagi&background=18181b&color=fafafa&size=800";
-              }}
-            />
-          </TiltCard>
+      <Stats stats={ABOUT_STATS} />
 
-          <div className="rounded-2xl border border-card-border bg-card-bg p-6">
-            <div className="mb-4 flex items-center gap-3">
-              <Code2 className="h-5 w-5 text-brand-primary" />
-              <h2 className="text-xl font-bold">Technical Toolkit</h2>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {SKILLS.map((skill, index) => (
-                <motion.span
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: index * 0.03 }}
-                  className="rounded-full border border-card-border bg-background px-3 py-1 text-sm font-medium"
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </div>
-        </motion.aside>
+      <section aria-labelledby="my-story">
+        <p id="my-story" className="mb-8 font-mono text-xs font-medium uppercase tracking-[0.22em] text-brand-primary">
+          My story
+        </p>
+        <ScrollRevealText
+          text={STORY}
+          className="max-w-5xl font-display text-3xl font-semibold leading-[1.25] tracking-tight md:text-5xl"
+        />
+      </section>
 
-        <div className="space-y-12">
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h2 className="mb-5 flex items-center text-2xl font-bold">
-              <span className="mr-3 h-7 w-1.5 rounded-full bg-brand-primary" />
-              My Journey
-            </h2>
-            <div className="space-y-4 text-lg leading-relaxed text-foreground/80">
-              <p>
-                I&apos;m Kanishk Tyagi, a customer experience professional,
-                full-stack developer, speaker, and community builder. I&apos;m
-                currently working as a Sr. CSA at
-                Prodege, where I&apos;ve been part of the team since April 2026.
-              </p>
-              <p>
-                I graduated from UIET, Panjab University with a Bachelor of
-                Engineering in 2024. Alongside my professional journey, I&apos;ve
-                spent more than three years building in and contributing to the
-                AI, web, and data communities.
-              </p>
-              <p>
-                I enjoy turning ideas into useful digital products, sharing what
-                I learn through technical talks, and creating spaces where
-                developers can learn from one another.
-              </p>
-            </div>
-          </motion.section>
+      <section>
+        <SectionHeading eyebrow="Three hats" title="What I do" subtitle="Pick a role to see what it involves." />
+        <RoleTabs />
+      </section>
 
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="mb-6 flex items-center text-2xl font-bold">
-              <Briefcase className="mr-3 h-6 w-6 text-brand-secondary" />
-              Professional Experience
-            </h2>
-            <div ref={timelineRef} className="relative space-y-7 border-l-2 border-card-border pl-8">
-              <motion.span
-                aria-hidden="true"
-                style={{ scaleY: timelineProgress }}
-                className="absolute -left-0.5 inset-y-0 w-0.5 origin-top bg-gradient-to-b from-brand-secondary to-brand-primary motion-reduce:hidden"
-              />
-              <div className="relative">
-                <motion.span {...timelineDot} className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-brand-secondary" />
-                <p className="text-sm font-semibold uppercase tracking-wider text-brand-secondary">
-                  April 2026 – Present
-                </p>
-                <h3 className="mt-1 text-xl font-bold">
-                  Sr. CSA
-                </h3>
-                <p className="mt-1 text-foreground/70">Prodege</p>
-              </div>
-              <div className="relative">
-                <motion.span {...timelineDot} className="absolute -left-[41px] top-1.5 h-4 w-4 rounded-full border-4 border-background bg-brand-primary" />
-                <p className="text-sm font-semibold uppercase tracking-wider text-brand-primary">
-                  Independent
-                </p>
-                <h3 className="mt-1 text-xl font-bold">
-                  Freelance Full-Stack Developer
-                </h3>
-                <p className="mt-1 leading-relaxed text-foreground/70">
-                  Building end-to-end websites and web applications tailored to
-                  each client&apos;s goals.
-                </p>
-              </div>
-            </div>
-          </motion.section>
+      <section>
+        <SectionHeading eyebrow="Timeline" title="The journey so far" subtitle="From a campus chapter to stages across India." />
+        <JourneyTimeline />
+      </section>
 
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="mb-6 flex items-center text-2xl font-bold">
-              <GraduationCap className="mr-3 h-6 w-6 text-brand-primary" />
-              Education
-            </h2>
-            <div className="flex flex-col justify-between gap-4 rounded-2xl border border-card-border bg-card-bg p-6 md:flex-row md:items-center">
-              <div>
-                <h3 className="text-xl font-bold">Bachelor of Engineering</h3>
-                <p className="mt-1 text-foreground/70">
-                  UIET, Panjab University
-                </p>
-              </div>
-              <span className="w-fit rounded-full border border-card-border bg-background px-4 py-2 text-sm font-medium text-foreground/60">
-                Class of 2024
-              </span>
-            </div>
-          </motion.section>
-        </div>
-      </div>
+      <section>
+        <SectionHeading eyebrow="Toolkit" title="Skills" subtitle="The languages, frameworks, and tools I reach for most. Filter by area." />
+        <SkillExplorer />
+      </section>
 
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
-        className="mt-20"
-      >
-        <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <div>
-            <div className="mb-3 flex items-center gap-3">
-              <Users className="h-7 w-7 text-brand-secondary" />
-              <h2 className="text-3xl font-bold">Community Experience</h2>
-            </div>
-            <p className="max-w-2xl text-foreground/65">
-              From leading a campus chapter to organizing developer events
-              across Chandigarh and Delhi.
-            </p>
-          </div>
+      <section>
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <SectionHeading
+            eyebrow="Community"
+            title="Community experience"
+            subtitle="From leading a campus chapter to organizing developer events across Chandigarh and Delhi."
+          />
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 font-semibold text-brand-primary transition-colors hover:text-brand-secondary"
+            className="mb-16 hidden items-center gap-2 font-semibold text-brand-primary transition-colors hover:text-brand-secondary sm:inline-flex"
           >
             Explore my events <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {communityExperience.map((item, index) => (
+          {COMMUNITY_EXPERIENCE.map((item, index) => (
             <TiltCard
               key={`${item.community}-${item.period}`}
               maxTilt={3}
               className="overflow-hidden rounded-2xl border border-card-border bg-card-bg p-6"
             >
-              <span className="absolute right-5 top-5 text-5xl font-black text-foreground/[0.04]">
+              <span className="absolute right-5 top-5 font-display text-5xl font-black text-foreground/[0.06]">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <p className="text-sm font-semibold uppercase tracking-wider text-brand-secondary">
-                {item.period}
-              </p>
+              <p className="text-sm font-semibold uppercase tracking-wider text-brand-secondary">{item.period}</p>
               <h3 className="mt-3 text-xl font-bold">{item.role}</h3>
-              <p className="mt-1 font-medium text-brand-primary">
-                {item.community}
-              </p>
-              <p className="mt-4 max-w-xl leading-relaxed text-foreground/70">
-                {item.description}
-              </p>
+              <p className="mt-1 font-medium text-brand-primary">{item.community}</p>
+              <p className="mt-4 max-w-xl leading-relaxed text-foreground/70">{item.description}</p>
             </TiltCard>
           ))}
         </div>
 
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
           <a
-            href="https://www.linkedin.com/in/kanishktyagi-connect"
+            href={LINKEDIN_URL}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-foreground/65 transition-colors hover:text-brand-primary"
           >
             Community updates on LinkedIn <ExternalLink className="h-3.5 w-3.5" />
           </a>
           <a
-            href="https://www.instagram.com/kanishkcodez/"
+            href={INSTAGRAM_URL}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-foreground/65 transition-colors hover:text-brand-primary"
           >
             Event moments on Instagram <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
-      </motion.section>
+      </section>
 
-      <div className="mt-20 grid gap-6 lg:grid-cols-2">
-        <motion.section
+      <section className="grid items-start gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-14">
+        <div>
+          <SectionHeading eyebrow="FAQ" title="Questions people ask me" />
+          <AboutFaq />
+        </div>
+
+        <motion.aside
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="rounded-3xl border border-card-border bg-card-bg p-7 md:p-9"
+          className="relative overflow-hidden rounded-3xl border border-brand-primary/30 bg-gradient-to-br from-brand-primary/15 via-card-bg to-brand-secondary/10 p-7 md:p-9 lg:sticky lg:top-28"
         >
-          <Mic2 className="h-8 w-8 text-brand-primary" />
-          <h2 className="mt-5 text-2xl font-bold">Speaking & Knowledge Sharing</h2>
-          <p className="mt-3 leading-relaxed text-foreground/70">
-            With 3+ years of hands-on experience across AI, web, and data, I
-            deliver practical sessions that help developers turn concepts into
-            working projects.
-          </p>
-          <ul className="mt-6 space-y-3">
-            {talkHighlights.map((topic) => (
-              <li key={topic} className="flex items-start gap-3 text-foreground/80">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-secondary" />
-                {topic}
-              </li>
-            ))}
-          </ul>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl border border-brand-primary/30 bg-gradient-to-br from-brand-primary/15 via-card-bg to-brand-secondary/10 p-7 md:p-9"
-        >
-          <Briefcase className="h-8 w-8 text-brand-secondary" />
+          <Briefcase className="h-8 w-8 text-brand-primary" />
           <h2 className="mt-5 text-2xl font-bold">Have a project in mind?</h2>
-          <p className="mt-3 max-w-xl leading-relaxed text-foreground/75">
-            I&apos;m available for freelance full-stack development. Whether you
-            need a business website, portfolio, dashboard, or custom web
-            application, tell me what you&apos;re building and I&apos;ll help shape the
-            right solution.
+          <p className="mt-3 leading-relaxed text-foreground/75">
+            I&apos;m available for freelance full-stack development. Whether you need a business website, portfolio,
+            dashboard, or custom web application, tell me what you&apos;re building and I&apos;ll help shape the right
+            solution.
           </p>
           <Link
             href="/contact"
-            className="mt-7 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 font-semibold text-background transition-transform hover:-translate-y-0.5"
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-brand-primary px-6 py-3 font-semibold text-on-brand transition-transform hover:-translate-y-0.5"
           >
             Request a quotation <ArrowRight className="h-4 w-4" />
           </Link>
-        </motion.section>
-      </div>
+        </motion.aside>
+      </section>
     </div>
   );
 }

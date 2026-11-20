@@ -14,14 +14,7 @@ export default function ProjectsPage() {
       />
 
       <section aria-labelledby="featured-projects">
-        <div className="mb-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary mb-2">
-            Selected work
-          </p>
-          <h2 id="featured-projects" className="text-2xl md:text-3xl font-bold">
-            Featured deployments
-          </h2>
-        </div>
+        <SectionHeading id="featured-projects" eyebrow="Selected work" title="Featured deployments" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {FEATURED_PROJECTS.map((project, index) => (
             <ProjectCard key={project.githubUrl} {...project} index={index} />
@@ -29,15 +22,8 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section aria-labelledby="project-archive" className="mt-20">
-        <div className="mb-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-secondary mb-2">
-            Learning & exploration
-          </p>
-          <h2 id="project-archive" className="text-2xl md:text-3xl font-bold">
-            Project archive
-          </h2>
-        </div>
+      <section aria-labelledby="project-archive" className="mt-24">
+        <SectionHeading id="project-archive" eyebrow="Learning & exploration" title="Project archive" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {ARCHIVED_PROJECTS.map((project, index) => (
             <ProjectCard key={project.githubUrl} {...project} index={index} />
